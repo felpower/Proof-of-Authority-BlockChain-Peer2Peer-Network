@@ -9,7 +9,7 @@ Some basic concepts of the Blockchain technology It should be
 
 - Tamper-Proof: Data as part of a block is always tamper-proof. It should be referenced by a cryptographic digest, a hash.
 - Decentralized: The blockchain itself is decentralized across the network. There is no master node and every Node has the same copy.
-- Transparent: Every node in the network validates and adds a new main.Block to its chain through consensus with other nodes. That means that every
+- Transparent: Every node in the network validates and adds a new main.BlockChain.Block to its chain through consensus with other nodes. That means that every
   single node in the network has complete visibility of the data.
 
 A block:
@@ -27,7 +27,7 @@ The hash of a block typically consists of the following data:
   transactions being added in the block are legitimate.
 - The first to mine a block wins!
 
-Verifying and adding a main.Block into the Blockchain.
+Verifying and adding a main.BlockChain.Block into the Blockchain.
 
 - For verifying that a block is legitimate all nodes in the network participate in verifying a newly mined block.
 - After verifying the newly mined block is added into the blockchain on the consensus of the nodes.
