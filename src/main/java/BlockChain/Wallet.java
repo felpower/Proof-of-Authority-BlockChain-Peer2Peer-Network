@@ -1,5 +1,8 @@
 package BlockChain;
 
+import static java.security.KeyPairGenerator.getInstance;
+import static org.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME;
+
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
@@ -20,7 +23,7 @@ public class Wallet {
   //The PublicKey is the address
   public PublicKey publicKey;
 
-  public HashMap<String, TransactionOutput> UTXOs = new HashMap<>(); //only UTXOs owned by this wallet.
+  public HashMap<String, TransactionOutput> UTXOs = new HashMap<>(); //Map of Unspent Transaction Output owned by this wallet.
 
   public Wallet() {
     generateKeyPair();
@@ -32,10 +35,10 @@ public class Wallet {
    */
   public void generateKeyPair() {
     try {
-      KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA", "BC");
-      SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+      KeyPairGenerator keyGen = getInstance("ECDSA", PROVIDER_NAME);//Elliptic Curve Digital Signature Algorithm
+      SecureRandom random = new SecureRandom();
       ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
-      keyGen.initialize(ecSpec, random);   //256 bytes provides an acceptable security level
+      keyGen.initialize(ecSpec, random);
       KeyPair keyPair = keyGen.generateKeyPair();
       // Set the public and private keys from the keyPair
       privateKey = keyPair.getPrivate();

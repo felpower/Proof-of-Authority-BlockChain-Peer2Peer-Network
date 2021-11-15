@@ -18,12 +18,11 @@ public class Transaction {
   public float value;
   public byte[] signature; // this is to prevent anybody else from spending funds in our wallet.
 
-  public ArrayList<TransactionInput> inputs = new ArrayList<>();
+  public ArrayList<TransactionInput> inputs;
   public ArrayList<TransactionOutput> outputs = new ArrayList<>();
 
   private static int sequence = 0; // a rough count of how many transactions have been generated.
 
-  // Constructor:
   public Transaction(PublicKey from, PublicKey to, float value, ArrayList<TransactionInput> inputs) {
     this.sender = from;
     this.reciepient = to;
@@ -41,20 +40,21 @@ public class Transaction {
     );
   }
 
-  //Signs all the data we dont wish to be tampered with.
+  //Signs all the data we don't wish to be tampered with.
   public void generateSignature(PrivateKey privateKey) {
-    String data = getStringFromKey(sender) + getStringFromKey(reciepient) + value;
-    signature = applyECDSASig(privateKey, data);
+    signature = applyECDSASig(privateKey, getData());
   }
 
-  //Verifies the data we signed hasnt been tampered with
+  //Verifies the data we signed has not been tampered with
   public boolean verifiySignature() {
-    String data = getStringFromKey(sender) + getStringFromKey(reciepient) + value;
-    return verifyECDSASig(sender, data, signature);
+    return verifyECDSASig(sender, getData(), signature);
+  }
+
+  public String getData() {
+    return getStringFromKey(sender) + getStringFromKey(reciepient) + value;
   }
 
   public boolean processTransaction() {
-
     if (!verifiySignature()) {
       System.out.println("#Transaction Signature failed to verify");
       return false;
@@ -95,7 +95,7 @@ public class Transaction {
 
   //returns sum of inputs(UTXOs) values
   public float getInputsValue() {
-    float total = 0;
+    float total = 0f;
     for (TransactionInput i : inputs) {
       if (i.UTXO == null) {
         continue; //if Transaction can't be found skip it
@@ -107,7 +107,7 @@ public class Transaction {
 
   //returns sum of outputs:
   public float getOutputsValue() {
-    float total = 0;
+    float total = 0f;
     for (TransactionOutput o : outputs) {
       total += o.value;
     }

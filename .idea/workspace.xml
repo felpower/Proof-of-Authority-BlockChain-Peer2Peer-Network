@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="" />
+    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="Added Wallets and Private/Public Keys">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BlockChain/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BlockChain/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BlockChain/FelCoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BlockChain/FelCoin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BlockChain/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BlockChain/Wallet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/helper/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helper/StringUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,6 +76,8 @@
       <option name="presentableId" value="Default" />
       <updated>1636895265960</updated>
       <workItem from="1636895267201" duration="3125000" />
+      <workItem from="1636901467842" duration="784000" />
+      <workItem from="1636993356195" duration="1578000" />
     </task>
     <task id="LOCAL-00001" summary="Add README.md">
       <created>1636895405662</created>
@@ -84,17 +93,51 @@
       <option name="project" value="LOCAL" />
       <updated>1636895471072</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added Wallets and Private/Public Keys">
+      <created>1636901529138</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1636901529138</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added Wallets and Private/Public Keys">
+      <created>1636901553481</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1636901553482</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added Wallets and Private/Public Keys">
+      <created>1636901614113</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1636901614113</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$/BlockChainP1" />
     </ignored-roots>
     <MESSAGE value="Add README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add README.md" />
+    <MESSAGE value="Added Wallets and Private/Public Keys" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Wallets and Private/Public Keys" />
   </component>
 </project>

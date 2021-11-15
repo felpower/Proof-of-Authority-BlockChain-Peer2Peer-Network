@@ -1,5 +1,9 @@
 package BlockChain;
 
+import static helper.StringUtil.applySha256;
+import static helper.StringUtil.getDificultyString;
+import static helper.StringUtil.getMerkleRoot;
+
 import helper.StringUtil;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +34,7 @@ public class Block {
 
   //Calculate new hash based on blocks contents
   public String calculateHash() {
-    return StringUtil.applySha256(
+    return applySha256(
         previousHash +
             timeStamp +
             nonce +
@@ -40,8 +44,8 @@ public class Block {
 
   //Increases nonce value until hash target is reached.
   public void mineBlock(int difficulty) {
-    merkleRoot = StringUtil.getMerkleRoot(transactions);
-    String target = StringUtil.getDificultyString(difficulty); //Create a string with difficulty * "0"
+    merkleRoot = getMerkleRoot(transactions);
+    String target = getDificultyString(difficulty);
     while (!hash.substring(0, difficulty).equals(target)) {
       nonce++;
       hash = calculateHash();

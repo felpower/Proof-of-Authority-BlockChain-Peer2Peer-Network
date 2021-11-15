@@ -15,14 +15,17 @@ import transaction.Transaction;
 
 public class StringUtil {
 
-  //Applies Sha256 to a string and returns the result.
-  public static String applySha256(String input) {
+  //
 
+  /**
+   * Applies the Sha256 hashing algorithm to a string and returns the result.
+   * @param input The input which we want to apply the Sha256 hashing algorithm to.
+   * @return the hashed String of the input
+   */
+  public static String applySha256(String input) {
     try {
       MessageDigest digest = getInstance("SHA-256");
-
       byte[] hash = digest.digest(input.getBytes(UTF_8));
-
       StringBuilder hexString = new StringBuilder();
       for (byte b : hash) {
         String hex = toHexString(0xff & b);
@@ -41,13 +44,11 @@ public class StringUtil {
     return new String(new char[difficulty]).replace('\0', '0');
   }
 
-  /*
-  applyECDSASig takes in the senders private key and string input, signs it and returns an array of bytes.
-  verifyECDSASig takes in the signature, public key and string data and returns true or false if the signature is valid.
-  getStringFromKey returns encoded string from any key.
+  /**
+   * @param privateKey takes in the senders private key
+   * @param input takes in the string key from the sender and recipient plus the sent value
+   * @return Applies ECDSA Signature and returns the result ( as bytes ).
    */
-
-  //Applies ECDSA Signature and returns the result ( as bytes ).
   public static byte[] applyECDSASig(PrivateKey privateKey, String input) {
     Signature dsa;
     byte[] output;
@@ -64,6 +65,13 @@ public class StringUtil {
   }
 
   //Verifies a String signature
+
+  /**
+   * @param publicKey takes in the senders private key.
+   * @param data takes in the string key from the sender and recipient plus the amount to send.
+   * @param signature this should be the same as the data, Verifies the data we signed has not been tampered with.
+   * @return true if everything is OK and false if the data has been tampered with.
+   */
   public static boolean verifyECDSASig(PublicKey publicKey, String data, byte[] signature) {
     try {
       Signature ecdsaVerify = Signature.getInstance("ECDSA", "BC");
