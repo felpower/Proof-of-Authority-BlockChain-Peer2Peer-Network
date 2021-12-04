@@ -11,11 +11,10 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.util.ArrayList;
+import java.util.List;
 import transaction.Transaction;
 
 public class StringUtil {
-
-  //
 
   /**
    * Applies the Sha256 hashing algorithm to a string and returns the result.
@@ -88,7 +87,7 @@ public class StringUtil {
   }
 
   //Tacks in array of transactions and returns a merkle root.
-  public static String getMerkleRoot(ArrayList<Transaction> transactions) {
+  public static String getMerkleRoot(List<Transaction> transactions) {
     int count = transactions.size();
     ArrayList<String> previousTreeLayer = new ArrayList<>();
     for (Transaction transaction : transactions) {

@@ -5,7 +5,7 @@ import static helper.StringUtil.applySha256;
 import static helper.StringUtil.getStringFromKey;
 import static helper.StringUtil.verifyECDSASig;
 
-import BlockChain.FelCoin;
+import blockchain.Main;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
@@ -62,11 +62,11 @@ public class Transaction {
 
     //gather transaction inputs (Make sure they are unspent):
     for (TransactionInput i : inputs) {
-      i.UTXO = FelCoin.UTXOs.get(i.transactionOutputId);
+      i.UTXO = Main.UTXOs.get(i.transactionOutputId);
     }
 
     //check if transaction is valid:
-    if (getInputsValue() < FelCoin.minimumTransaction) {
+    if (getInputsValue() < Main.minimumTransaction) {
       System.out.println("#Transaction Inputs to small: " + getInputsValue());
       return false;
     }
@@ -79,7 +79,7 @@ public class Transaction {
 
     //add outputs to Unspent list
     for (TransactionOutput o : outputs) {
-      FelCoin.UTXOs.put(o.id, o);
+      Main.UTXOs.put(o.id, o);
     }
 
     //remove transaction inputs from UTXO lists as spent:
@@ -87,7 +87,7 @@ public class Transaction {
       if (i.UTXO == null) {
         continue; //if Transaction can't be found skip it
       }
-      FelCoin.UTXOs.remove(i.UTXO.id);
+      Main.UTXOs.remove(i.UTXO.id);
     }
 
     return true;

@@ -4,13 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="Added Wallets and Private/Public Keys">
+    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="javadoc + refactoring">
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_2_0_0_alpha5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/application/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/application/MulticastSender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/application/Node.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blockchain/BlockChain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blockchain/FelCoinNetwork.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blockchain/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/certification/Certification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/helper/HashCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/helper/SignaturePublicKey.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/peer2peer/Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/peer2peer/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/peer2peer/MessageParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/peer2peer/MessageType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/peer2peer/MulticastReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/peer2peer/PeerInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/peer2peer/PortReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/peer2peer/PortSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/51822498-patrick-felbauer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/51822498-patrick-felbauer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BlockChain/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BlockChain/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BlockChain/FelCoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BlockChain/FelCoin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BlockChain/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BlockChain/Wallet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BlockChain/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BlockChain/FelCoin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BlockChain/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Wallet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/helper/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helper/StringUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BlockChain/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BlockChain/Block.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BlockChain/FelCoin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BlockChain/FelCoin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BlockChain/Wallet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BlockChain/Wallet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/helper/StringUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/helper/StringUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/transaction/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/transaction/Transaction.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +52,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -32,6 +65,16 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/blockchain/Main.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/blockchain/Block.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/application/Wallet.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/helper/StringUtil.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/transaction/Transaction.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="20uX5mxf9PnSMVxN9Ct7WcTR6nS" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -42,20 +85,30 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../TestProjekte/BlockChain" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="application" />
+      <recent name="peer2peer" />
+      <recent name="blockchain" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Schule\Projekt1\51822498-patrick-felbauer" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="peer2peer" />
+      <recent name="blockchain" />
+    </key>
   </component>
   <component name="RunManager">
-    <configuration name="FelCoin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="BlockChain.FelCoin" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="blockchain.Main" />
       <module name="51822498-patrick-felbauer" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -63,7 +116,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FelCoin" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -77,7 +130,14 @@
       <updated>1636895265960</updated>
       <workItem from="1636895267201" duration="3125000" />
       <workItem from="1636901467842" duration="784000" />
-      <workItem from="1636993356195" duration="1578000" />
+      <workItem from="1636993356195" duration="1633000" />
+      <workItem from="1637045218448" duration="49000" />
+      <workItem from="1637241824187" duration="1810000" />
+      <workItem from="1637736331149" duration="96000" />
+      <workItem from="1638302829767" duration="130000" />
+      <workItem from="1638521838963" duration="4650000" />
+      <workItem from="1638531969038" duration="9378000" />
+      <workItem from="1638610156122" duration="1717000" />
     </task>
     <task id="LOCAL-00001" summary="Add README.md">
       <created>1636895405662</created>
@@ -114,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636901614113</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="javadoc + refactoring">
+      <created>1636994989719</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1636994989720</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,7 +197,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -138,6 +204,7 @@
     </ignored-roots>
     <MESSAGE value="Add README.md" />
     <MESSAGE value="Added Wallets and Private/Public Keys" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Wallets and Private/Public Keys" />
+    <MESSAGE value="javadoc + refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="javadoc + refactoring" />
   </component>
 </project>
