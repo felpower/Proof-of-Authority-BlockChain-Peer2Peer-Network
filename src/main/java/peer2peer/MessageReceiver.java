@@ -45,8 +45,8 @@ public class MessageReceiver extends Thread {
             if (!getPeers().contains(message.getSender())) {
               respondHandshake(message.getSender().getPort(), node);
               getPeers().add(message.getSender());
-              //ToDo: add starting Balance
             }
+            //ToDo: add starting Balance
             break;
           case NewBlock:
 

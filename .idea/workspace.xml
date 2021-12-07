@@ -4,45 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="javadoc + refactoring">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__log4j_log4j_1_2_17.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_log4j12_1_7_32.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/application/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/51822498-patrick-felbauer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/51822498-patrick-felbauer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_2_0_0_alpha5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Application.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/MulticastSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer2peer/MessageSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Wallet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/BlockChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/BlockChain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/FelCoinNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/FelCoinNetwork.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/certification/Certification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/certification/Certification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/helper/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helper/StringUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer2peer/Config.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer2peer/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/MessageParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer2peer/MessageParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/MessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer2peer/MessageType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/MulticastReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer2peer/MessageReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/PeerInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer2peer/PeerInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/PortReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer2peer/PortReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/PortSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer2peer/PortSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BlockChain/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BlockChain/Block.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BlockChain/FelCoin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BlockChain/Wallet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/helper/StringUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/helper/StringUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/transaction/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/transaction/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/transaction/TransactionInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/transaction/TransactionInput.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/transaction/TransactionOutput.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/transaction/TransactionOutput.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/MessageReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer2peer/MessageReceiver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +112,7 @@
       <workItem from="1638521838963" duration="4650000" />
       <workItem from="1638531969038" duration="9378000" />
       <workItem from="1638610156122" duration="1717000" />
-      <workItem from="1638865856266" duration="3783000" />
+      <workItem from="1638865856266" duration="5387000" />
     </task>
     <task id="LOCAL-00001" summary="Add README.md">
       <created>1636895405662</created>
@@ -191,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636994989720</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="removed unused classes and imports">
+      <created>1638870247045</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1638870247045</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,6 +188,9 @@
     <MESSAGE value="Add README.md" />
     <MESSAGE value="Added Wallets and Private/Public Keys" />
     <MESSAGE value="javadoc + refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="javadoc + refactoring" />
+    <MESSAGE value="removed unused classes and imports" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed unused classes and imports" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
