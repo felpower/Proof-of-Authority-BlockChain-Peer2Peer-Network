@@ -1,7 +1,7 @@
 package peer2peer;
 
 import static java.net.InetAddress.getByName;
-import static peer2peer.PeerInfo.fetchRandPeer;
+import static peer2peer.PeerInfo.getRandomPeer;
 
 import application.Node;
 import blockchain.Block;
@@ -21,13 +21,12 @@ public class PortSender {
     new DatagramSocket().send(new DatagramPacket(buffer, buffer.length, getByName("localhost"), port));
   }
 
-  public static void requestChainSync(Node requester, Block block) throws IOException
-  {
-    Message<Header> message    = new Message<>(MessageType.BlockchainSync, requester, block.getHeader());
+  public static void synchronizeBlockChain(Node requester, Block block) throws IOException {
+    Message<Header> message = new Message<>(MessageType.BlockchainSync, requester, block.getHeader());
     byte[] buffer = new ObjectMapper().writeValueAsBytes(message);
 
-    int toPort = fetchRandPeer(requester).getPort();
-    DatagramPacket packet  = new DatagramPacket(buffer, buffer.length, InetAddress.getByName("localhost"), toPort);
+    int toPort = getRandomPeer(requester).getPort();
+    DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName("localhost"), toPort);
     new DatagramSocket().send(packet);
   }
 }

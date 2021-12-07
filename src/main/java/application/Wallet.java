@@ -6,9 +6,9 @@ import java.security.KeyPair;
 public class Wallet {
 
   // Private and Public Key Pair
-  private KeyPair keyPair;
+  private final KeyPair keyPair;
   // The address of the Walled
-  private String address;
+  private final String address;
 
   public Wallet(KeyPair keyPair) {
     this.keyPair = keyPair;

@@ -10,8 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="51822498-patrick-felbauer" target="16" />
-      <module name="BlockChainP1" target="16" />
+      <module name="51822498-patrick-felbauer" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>

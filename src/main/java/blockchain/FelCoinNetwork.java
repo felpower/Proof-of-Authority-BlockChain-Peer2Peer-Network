@@ -8,8 +8,8 @@ import transaction.Transaction;
 
 public class FelCoinNetwork {
 
-  private Map<String, Float> coins;
-  private List<Transaction> transactionList;
+  private final Map<String, Float> coins;
+  private final List<Transaction> transactionList;
 
   public FelCoinNetwork() {
     this.coins = new HashMap<>();

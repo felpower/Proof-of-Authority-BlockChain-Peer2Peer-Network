@@ -8,28 +8,26 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.net.NetworkInterface;
 import java.util.logging.Logger;
 
-public class MulticastReceiver extends Thread {
+public class MessageReceiver extends Thread {
 
-  Logger logger = Logger.getLogger(MulticastReceiver.class.getName());
+  Logger logger = Logger.getLogger(MessageReceiver.class.getName());
 
   protected MulticastSocket socket = null;
   protected Node node;
 
-  public MulticastReceiver(Node user) {
+  public MessageReceiver(Node user) {
     this.node = user;
   }
 
   @Override
   public void run() {
     try {
-      socket = new MulticastSocket(Config.multicastPort);
+      socket = new MulticastSocket(Config.port);
 
-      InetAddress group = InetAddress.getByName(Config.multicastHost);
-      NetworkInterface networkInterface = NetworkInterface.getByInetAddress(group);
-      socket.joinGroup(socket.getLocalSocketAddress(), networkInterface);
+      InetAddress group = InetAddress.getByName(Config.ip_address);
+      socket.joinGroup(group);
 
       while (true) {
         byte[] buffer = new byte[2056];
@@ -43,7 +41,7 @@ public class MulticastReceiver extends Thread {
         Message<?> message = MessageParser.parseMessage(incoming);
         switch (message.getMessageType()) {
           case PeerDiscovery:
-            logger.info("[MC-Receiver] incoming peer discovery from " + message.getSender());
+//            logger.info("New Peer found in Network " + message.getSender());
             if (!getPeers().contains(message.getSender())) {
               respondHandshake(message.getSender().getPort(), node);
               getPeers().add(message.getSender());
@@ -55,7 +53,7 @@ public class MulticastReceiver extends Thread {
         }
       }
 
-      socket.leaveGroup(socket.getLocalSocketAddress(), networkInterface);
+      socket.leaveGroup(group);
       socket.close();
     } catch (IOException e) {
       e.printStackTrace();

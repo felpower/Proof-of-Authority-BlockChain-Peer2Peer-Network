@@ -9,6 +9,7 @@ import java.security.SecureRandom;
 import java.security.spec.ECGenParameterSpec;
 
 public class Certification {
+
   public KeyPair generateKeyPair() {
     try {
       KeyPairGenerator keyGen = getInstance("ECDSA", PROVIDER_NAME);//Elliptic Curve Digital Signature Algorithm

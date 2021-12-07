@@ -14,6 +14,7 @@ public class Block {
   //The list of Transactions
   public List<Transaction> transactions;
 
+  // Data to make the Block unique
   public Header header;
 
   public Block(
@@ -65,7 +66,7 @@ public class Block {
     return header;
   }
 
-  public static class Header{
+  public static class Header {
 
     //Hash of the previous block, an important part to build the chain
     public String previousHash;

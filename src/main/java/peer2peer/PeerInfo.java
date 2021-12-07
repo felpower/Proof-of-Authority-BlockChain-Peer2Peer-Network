@@ -2,12 +2,13 @@ package peer2peer;
 
 import application.Node;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
 public class PeerInfo {
 
-  private static Set<Node> peers = new HashSet<>();
+  private static final Set<Node> peers = new HashSet<>();
 
   public static Set<Node> getPeers() {
     return peers;
@@ -17,21 +18,16 @@ public class PeerInfo {
     peers.add(peer);
   }
 
-  public static Node fetchRandPeer(Node requester) {
-    if (peers.size() <= 1) {
-      return requester;
-    }
-    int i = 0;
-    for (Node node : peers) {
-      if (i == new Random().nextInt(peers.size())) {
-        if (node.equals(requester)) {
-          return fetchRandPeer(requester);
-        } else {
-          return node;
-        }
+  public static Node getRandomPeer(Node requester) {
+    Random rand = new Random();
+    if (peers.size() > 1) {
+      int index = rand.nextInt(peers.size());
+      Iterator<Node> iter = peers.iterator();
+      for (int i = 0; i < index; i++) {
+        iter.next();
       }
-      i++;
+      return iter.next();
     }
-    return null;
+    return requester;
   }
 }

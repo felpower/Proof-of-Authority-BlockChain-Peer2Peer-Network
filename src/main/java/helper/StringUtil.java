@@ -18,6 +18,7 @@ public class StringUtil {
 
   /**
    * Applies the Sha256 hashing algorithm to a string and returns the result.
+   *
    * @param input The input which we want to apply the Sha256 hashing algorithm to.
    * @return the hashed String of the input
    */
@@ -45,7 +46,7 @@ public class StringUtil {
 
   /**
    * @param privateKey takes in the senders private key
-   * @param input takes in the string key from the sender and recipient plus the sent value
+   * @param input      takes in the string key from the sender and recipient plus the sent value
    * @return Applies ECDSA Signature and returns the result ( as bytes ).
    */
   public static byte[] applyECDSASig(PrivateKey privateKey, String input) {
@@ -67,7 +68,7 @@ public class StringUtil {
 
   /**
    * @param publicKey takes in the senders private key.
-   * @param data takes in the string key from the sender and recipient plus the amount to send.
+   * @param data      takes in the string key from the sender and recipient plus the amount to send.
    * @param signature this should be the same as the data, Verifies the data we signed has not been tampered with.
    * @return true if everything is OK and false if the data has been tampered with.
    */

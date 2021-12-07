@@ -1,19 +1,18 @@
 package peer2peer;
 
-import application.Application;
+import static application.Main.getFelCoin;
+import static peer2peer.MessageParser.parseMessage;
+
 import application.Node;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.MulticastSocket;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 public class PortReceiver extends Thread {
 
-  protected Logger logger = LoggerFactory.getLogger(getClass());
+  Logger logger = Logger.getLogger(PortReceiver.class.getName());
 
-  protected MulticastSocket socket = null;
   protected Node node;
 
   public PortReceiver(Node user) {
@@ -29,15 +28,15 @@ public class PortReceiver extends Thread {
         DatagramPacket incoming = new DatagramPacket(buffer, buffer.length);
         serverSocket.receive(incoming);
 
-        Message<?> message = MessageParser.parseMessage(incoming);
+        Message<?> message = parseMessage(incoming);
 
         switch (message.getMessageType()) {
           case PeerResponse:
-            logger.info("new peer response from " + message.getSender());
+//            logger.info("new peer response from " + message.getSender());
             PeerInfo.addPeer(message.getSender());
 
             // adds address to chain accounts
-            Application.getFelCoin().getCoins().put(message.getSender().getAddress(), 1000F);
+            getFelCoin().getCoins().put(message.getSender().getAddress(), 1000F);
             break;
 
         }

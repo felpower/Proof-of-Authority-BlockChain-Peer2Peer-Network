@@ -1,5 +1,7 @@
 package blockchain;
 
+import static blockchain.Block.calculateHash;
+
 import helper.SignaturePublicKey;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +30,7 @@ public class BlockChain {
   }
 
   protected boolean verifyBlock(Block newBlock) {
-    String hashCode = Block.calculateHash(newBlock.getNonce(),
+    String hashCode = calculateHash(newBlock.getNonce(),
         newBlock.getMerkleRoot(),
         newBlock.getPreviousHash(),
         newBlock.getTimestamp());
