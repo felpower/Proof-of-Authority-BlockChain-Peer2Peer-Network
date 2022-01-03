@@ -1,14 +1,20 @@
 package blockchain;
 
-public enum Balance {
-  FLC("FelCoin", 1000);
+public class Balance {
 
   private final String name;
-  private final double price;
+  private final double amount;
 
-  Balance(String name, double value) {
-    this.name = name;
-    this.price = value;
+  public Balance(double startingValue) {
+    this.name = "Felcoin";
+    this.amount = startingValue;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public double getAmount() {
+    return amount;
+  }
 }

@@ -5,12 +5,12 @@ understand the main building blocks of blockchain technology, this project aims 
 data model of the blocks, use the hashing algorithms, implement a function for creating the Merkle Tree, implement a proof-of-authority (PoA)
 algorithm, mine new blocks, execute transactions, and a simplified peer-to-peer (P2P) protocol.
 
-Some basic concepts of the Blockchain technology It should be
+Some basic concepts of the blockchain technology It should be
 
 - Tamper-Proof: Data as part of a block is always tamper-proof. It should be referenced by a cryptographic digest, a hash.
-- Decentralized: The blockchain itself is decentralized across the network. There is no master node and every Node has the same copy.
-- Transparent: Every node in the network validates and adds a new main.blockchain.Block to its chain through consensus with other nodes. That means that every
-  single node in the network has complete visibility of the data.
+- Decentralized: The blockchain itself is decentralized across the network. There is no master peer and every Node has the same copy.
+- Transparent: Every peer in the network validates and adds a new main.blockchain.Block to its chain through consensus with other nodes. That means that every
+  single peer in the network has complete visibility of the data.
 
 A block:
 
@@ -27,7 +27,7 @@ The hash of a block typically consists of the following data:
   transactions being added in the block are legitimate.
 - The first to mine a block wins!
 
-Verifying and adding a main.blockchain.Block into the Blockchain.
+Verifying and adding a main.blockchain.Block into the blockchain.
 
 - For verifying that a block is legitimate all nodes in the network participate in verifying a newly mined block.
 - After verifying the newly mined block is added into the blockchain on the consensus of the nodes.

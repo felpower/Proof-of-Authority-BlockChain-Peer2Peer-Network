@@ -1,8 +1,10 @@
 package helper;
 
+import java.io.Serializable;
 import java.security.PublicKey;
+import java.util.Arrays;
 
-public class SignaturePublicKey {
+public class SignaturePublicKey implements Serializable {
 
   private byte[] signature;
   private byte[] publicKeyEncoded;
@@ -22,4 +24,5 @@ public class SignaturePublicKey {
   public byte[] getPublicKeyEncoded() {
     return publicKeyEncoded;
   }
+
 }

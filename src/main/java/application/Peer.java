@@ -3,21 +3,24 @@ package application;
 import static helper.HashCode.applySha256;
 import static java.util.Objects.hash;
 
+import java.io.Serializable;
 import java.security.KeyPair;
 
-public class Node {
+public class Peer implements Serializable {
 
   private int port;
   private String username;
   private String address;
+  private KeyPair keyPair;
 
-  public Node() {
+  public Peer() {
     // deserializer for Jackson
   }
 
-  public Node(int port, String username, KeyPair keyPair) {
+  public Peer(int port, String username, KeyPair keyPair) {
     this.port = port;
     this.username = username;
+    this.keyPair = keyPair;
     this.address = applySha256(new String(keyPair.getPublic().getEncoded()));
   }
 
@@ -33,6 +36,14 @@ public class Node {
     return address;
   }
 
+  public KeyPair getKeyPair() {
+    return keyPair;
+  }
+
+  public String getUrl() {
+    return "rmi://127.0.0.1:" + port + "/felcoinnetwork";
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -41,8 +52,8 @@ public class Node {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Node node = (Node) o;
-    return getPort() == node.getPort() && getUsername().equals(node.getUsername()) && getAddress().equals(node.getAddress());
+    Peer peer = (Peer) o;
+    return getPort() == peer.getPort() && getUsername().equals(peer.getUsername()) && getAddress().equals(peer.getAddress());
   }
 
   @Override
