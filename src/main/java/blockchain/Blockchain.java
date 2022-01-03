@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Blockchain implements Serializable {
 
-  public static List<Block> blockchain = new ArrayList<>();
+  public final List<Block> blockchain = new ArrayList<>();
 
   public Blockchain() {
     Block genesis = new Block(0, "Genesis", null, new Date().getTime(), new ArrayList<>(), new SignaturePublicKey());

@@ -4,47 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="started with peer2peer network">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/blockchain/Miner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/network/FelCoinSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/network/FunctionInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/network/Peer2PeerInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/network/Peer2PeerNetwork.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/network/RemoteHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="completely revamped peer2peer network, now uses an RMI peer 2 peer Network. Added Miner, added start for Transaction. Added Options to Show active Peers in Network, create new Transaction(not fully working), show Current Balance of Wallet, Print current BlockChain(only works on first peer for now), Mining a new Block, Disconnecting from the Network">
+      <change beforePath="$PROJECT_DIR$/.idea/51822498-patrick-felbauer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/51822498-patrick-felbauer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_13_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_13_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_13_0.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Peer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Wallet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/BlockChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/FelCoinNetwork.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/helper/SignaturePublicKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helper/SignaturePublicKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/helper/StringUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/Config.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/Message.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/MessageParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/MessageReceiver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/MessageSender.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/MessageType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/PeerInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/PortReceiver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer2peer/PortSender.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/TransactionInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/TransactionOutput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BlockChain/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BlockChain/Block.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/helper/StringUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/transaction/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/transaction/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/transaction/TransactionInput.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/transaction/TransactionOutput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +59,6 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -160,6 +125,7 @@
       <workItem from="1640881940012" duration="7540000" />
       <workItem from="1640961061227" duration="3691000" />
       <workItem from="1641125614764" duration="3345000" />
+      <workItem from="1641211973040" duration="4092000" />
     </task>
     <task id="LOCAL-00001" summary="Add README.md">
       <created>1636895405662</created>
@@ -203,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636994989720</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="completely revamped peer2peer network, now uses an RMI peer 2 peer Network. Added Miner, added start for Transaction. Added Options to Show active Peers in Network, create new Transaction(not fully working), show Current Balance of Wallet, Print current BlockChain(only works on first peer for now), Mining a new Block, Disconnecting from the Network">
+      <created>1641212266338</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1641212266338</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,18 +200,10 @@
     <MESSAGE value="Add README.md" />
     <MESSAGE value="Added Wallets and Private/Public Keys" />
     <MESSAGE value="javadoc + refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="javadoc + refactoring" />
+    <MESSAGE value="completely revamped peer2peer network, now uses an RMI peer 2 peer Network. Added Miner, added start for Transaction. Added Options to Show active Peers in Network, create new Transaction(not fully working), show Current Balance of Wallet, Print current BlockChain(only works on first peer for now), Mining a new Block, Disconnecting from the Network" />
+    <option name="LAST_COMMIT_MESSAGE" value="completely revamped peer2peer network, now uses an RMI peer 2 peer Network. Added Miner, added start for Transaction. Added Options to Show active Peers in Network, create new Transaction(not fully working), show Current Balance of Wallet, Print current BlockChain(only works on first peer for now), Mining a new Block, Disconnecting from the Network" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="network.FelCoinSystem" memberName="blockchain" />
