@@ -1,6 +1,8 @@
 package blockchain;
 
-public class Balance {
+import java.io.Serializable;
+
+public class Balance implements Serializable {
 
   private final String name;
   private final double amount;

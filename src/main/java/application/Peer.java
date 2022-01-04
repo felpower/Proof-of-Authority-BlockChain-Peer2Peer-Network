@@ -12,16 +12,18 @@ public class Peer implements Serializable {
   private String username;
   private String address;
   private KeyPair keyPair;
+  private Role role;
 
   public Peer() {
     // deserializer for Jackson
   }
 
-  public Peer(int port, String username, KeyPair keyPair) {
+  public Peer(int port, String username, KeyPair keyPair, Role role) {
     this.port = port;
     this.username = username;
     this.keyPair = keyPair;
     this.address = applySha256(new String(keyPair.getPublic().getEncoded()));
+    this.role = role;
   }
 
   public int getPort() {
@@ -38,6 +40,10 @@ public class Peer implements Serializable {
 
   public KeyPair getKeyPair() {
     return keyPair;
+  }
+
+  public Role getRole() {
+    return role;
   }
 
   public String getUrl() {
@@ -63,10 +69,12 @@ public class Peer implements Serializable {
 
   @Override
   public String toString() {
-    return "Node{" +
+    return "Peer{" +
         "port=" + port +
         ", username='" + username + '\'' +
         ", address='" + address + '\'' +
+        ", keyPair=" + keyPair +
+        ", role=" + role +
         '}';
   }
 }

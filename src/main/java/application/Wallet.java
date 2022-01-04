@@ -1,16 +1,17 @@
 package application;
 
+import static helper.HashCode.applySha256;
 import static java.security.Signature.getInstance;
 import static org.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME;
 
 import blockchain.Balance;
 import blockchain.Block.Header;
-import helper.HashCode;
+import java.io.Serializable;
 import java.security.KeyPair;
 import java.security.Signature;
 import transaction.UpcomingTransaction;
 
-public class Wallet {
+public class Wallet implements Serializable {
 
   // Private and Public Key Pair
   private final KeyPair keyPair;
@@ -21,7 +22,7 @@ public class Wallet {
 
   public Wallet(KeyPair keyPair) {
     this.keyPair = keyPair;
-    this.address = HashCode.applySha256(new String(keyPair.getPublic().getEncoded()));
+    this.address = applySha256(new String(keyPair.getPublic().getEncoded()));
     this.balance = new Balance(100);
   }
 

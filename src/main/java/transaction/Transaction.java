@@ -1,8 +1,9 @@
 package transaction;
 
 import helper.SignaturePublicKey;
+import java.io.Serializable;
 
-public class Transaction {
+public class Transaction implements Serializable {
 
   private UpcomingTransaction upcomingTransaction;
   private SignaturePublicKey signaturePublicKey;

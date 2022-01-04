@@ -1,8 +1,14 @@
 package helper;
 
+import static java.security.Signature.getInstance;
+import static org.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME;
+
 import java.io.Serializable;
+import java.security.KeyPair;
 import java.security.PublicKey;
+import java.security.Signature;
 import java.util.Arrays;
+import transaction.UpcomingTransaction;
 
 public class SignaturePublicKey implements Serializable {
 
@@ -25,4 +31,16 @@ public class SignaturePublicKey implements Serializable {
     return publicKeyEncoded;
   }
 
+
+  public static boolean signTransaction(UpcomingTransaction upcomingTransaction, KeyPair keyPair) {
+    try {
+      Signature signature = getInstance("ECDSA", PROVIDER_NAME);
+      signature.initSign(keyPair.getPrivate());
+      signature.update(upcomingTransaction.toString().getBytes());
+      return signature.verify(upcomingTransaction.getSignaturePublicKey().signature);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
 }

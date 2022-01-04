@@ -1,7 +1,9 @@
 package network;
 
+import static helper.RandomHelper.getRandomPeer;
+import static java.lang.String.valueOf;
 import static java.rmi.Naming.lookup;
-import static java.util.Objects.isNull;
+import static java.util.Collections.singletonList;
 
 import application.Peer;
 import blockchain.Block;
@@ -18,8 +20,13 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import transaction.Transaction;
+import transaction.UpcomingTransaction;
 
 public class Peer2PeerNetwork implements Peer2PeerInterface {
 
@@ -68,21 +75,66 @@ public class Peer2PeerNetwork implements Peer2PeerInterface {
   }
 
   @Override
-  public Blockchain getCurrentChain() {
+  public Blockchain getCurrentChain(Peer peer) {
     try {
       List<Peer> peers = getPeers();
-      FunctionInterface remote = (FunctionInterface) lookup(String.valueOf(peers.get(0).getUrl()));
-
-      Blockchain chain = remote.getCurrentChain();
-      if (isNull(chain)) {
+      if (peers.size() <= 1) {
         System.out.println("Initialised new Chain");
         return new Blockchain();
-      } else {
-        System.out.println("Blockchain found from other Peer: ");
-        chain.print();
-        return chain;
       }
+      FunctionInterface remote = (FunctionInterface) lookup(valueOf(getRandomPeer(peers, singletonList(peer)).getUrl()));
+      Blockchain chain = remote.getCurrentChain();
+      System.out.println("Blockchain found from other Peer: ");
+      chain.print();
+      return chain;
+    } catch (NotBoundException | MalformedURLException | RemoteException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
 
+  @Override
+  public Map<String, Double> getSystemBalance(Peer peer) {
+    try {
+      List<Peer> peers = getPeers();
+      if (peers.size() <= 1) {
+        System.out.println("The System has now a Balance of 100 Coins from Peer: " + peer.toString());
+
+        HashMap<String, Double> map = new HashMap<>();
+        map.put(peer.getAddress(), 100.);
+        return map;
+      }
+      FunctionInterface remote = (FunctionInterface) lookup(valueOf(getRandomPeer(peers, singletonList(peer)).getUrl()));
+      Map<String, Double> systemBalance = remote.getSystemBalance();
+      System.out.println("Balance of System is currently: " + systemBalance);
+      return systemBalance;
+    } catch (NotBoundException | MalformedURLException | RemoteException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  @Override
+  public List<Transaction> getTransactionList(Peer peer) {
+    try {
+      List<Peer> peers = getPeers();
+      if (peers.size() <= 1) {
+        return new ArrayList<>();
+      }
+      FunctionInterface remote = (FunctionInterface) lookup(valueOf(getRandomPeer(peers, singletonList(peer)).getUrl()));
+      return remote.getTransactionList();
+    } catch (NotBoundException | MalformedURLException | RemoteException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  @Override
+  public List<UpcomingTransaction> getUpcomingTransactionList(Peer peer) {
+    try {
+      List<Peer> peers = getPeers();
+      if (peers.size() <= 1) {
+        return new ArrayList<>();
+      }
+      FunctionInterface remote = (FunctionInterface) lookup(valueOf(getRandomPeer(peers, singletonList(peer)).getUrl()));
+      return remote.getUpcomingTransactionList();
     } catch (NotBoundException | MalformedURLException | RemoteException ex) {
       throw new RuntimeException(ex);
     }
@@ -131,4 +183,31 @@ public class Peer2PeerNetwork implements Peer2PeerInterface {
     System.out.println("Removed Peer: " + peer);
     return true;
   }
+
+//  @Override
+//  public boolean signTransaction(UpcomingTransaction upcomingTransaction) {
+//    try {
+//      FunctionInterface remote = (FunctionInterface) lookup(upcomingTransaction.getSender().getUrl());
+//      return remote.signTransaction(upcomingTransaction);
+//    } catch (NotBoundException | MalformedURLException | RemoteException e) {
+//      e.printStackTrace();
+//    }
+//    return false;
+//  }
+
+  @Override
+  public void proposeTransactionToValidators(UpcomingTransaction upcomingTransaction, Peer except) {
+    try {
+      for (Peer peer : getPeers()) {
+        if (peer.equals(except)) {
+          continue;
+        }
+        FunctionInterface remote = (FunctionInterface) lookup(peer.getUrl());
+        remote.proposeTransactionToValidator(upcomingTransaction);
+      }
+    } catch (NotBoundException | MalformedURLException | RemoteException e) {
+      e.printStackTrace();
+    }
+  }
+
 }

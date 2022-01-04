@@ -1,5 +1,6 @@
 package application;
 
+import static application.Role.VALIDATOR;
 import static java.lang.String.format;
 import static java.lang.System.exit;
 import static java.lang.System.in;
@@ -15,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.KeyPair;
+import java.util.List;
 import network.FelCoinSystem;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import transaction.Transaction;
@@ -33,11 +35,14 @@ public class Main {
     addProvider(new BouncyCastleProvider());
 
     try {
+      //ToDo: Add Inputs for Port, for Username and for Role
       int port = (int) (Math.random() * (6000 - 4999)) + 10000;
       String username = "User " + (int) (Math.random() * (10));
+      Role role = VALIDATOR;
       KeyPair keyPair = new Certification().generateKeyPair();
-      peer = new Peer(port, username, keyPair);
+      peer = new Peer(port, username, keyPair, role);
       network = new FelCoinSystem(peer);
+      wallet = new Wallet(peer.getKeyPair());
       start();
     } catch (IOException e) {
       e.printStackTrace();
@@ -45,7 +50,6 @@ public class Main {
   }
 
   public static void start() throws IOException {
-    wallet = new Wallet(peer.getKeyPair());
     BufferedReader reader = new BufferedReader(new InputStreamReader(in));
     String input = "0";
     while (true) {
@@ -74,6 +78,10 @@ public class Main {
           mineNewBlock();
           break;
         }
+        case "6" -> {
+          showTotalValueOfCoinsInSystem();
+          break;
+        }
         case "x" -> {
           out.println("Thanks for using FelCoin Peer Network");
           network.removePeer(peer);
@@ -85,18 +93,33 @@ public class Main {
     }
   }
 
+  private static void showTotalValueOfCoinsInSystem() {
+    out.println("The total amount of Coins in Rotation is " + network.getSystemBalance().values().stream().mapToInt(Double::intValue).sum());
+  }
+
   private static void printCurrentBlockChain() {
     network.getBlockchain().print();
   }
 
-  private static void createNewTransaction() throws IOException {
-    UpcomingTransaction upcomingTransaction = newUpcomingTransaction(peer, wallet);
-    network.addUpcomingTransaction(upcomingTransaction);
+  private static void createNewTransaction() {
+    try {
+      UpcomingTransaction upcomingTransaction = newUpcomingTransaction(peer, wallet);
 
-    Transaction transaction = new Transaction(upcomingTransaction, new SignaturePublicKey(wallet.signTransaction(upcomingTransaction), wallet.getKeyPair()
-        .getPublic()));
-    network.removeTransaction(upcomingTransaction);
+      SignaturePublicKey signaturePublicKey = new SignaturePublicKey(wallet.signTransaction(upcomingTransaction), wallet.getKeyPair().getPublic());
+      upcomingTransaction.addSignaturePublicKey(signaturePublicKey);
+      network.addUpcomingTransaction(upcomingTransaction);
 
+      network.proposeUpcomingTransactionToValidators(upcomingTransaction, peer);
+      Thread.sleep(1000);//Wait for Validators
+      upcomingTransaction = network.findUpcomingTransaction(upcomingTransaction);
+      if (upcomingTransaction.getValidated() >= network.findActiveValidatorsInNetwork()) {
+        Transaction transaction = new Transaction(upcomingTransaction, signaturePublicKey);
+        network.addTransaction(transaction);
+        network.removeUpcomingTransaction(upcomingTransaction);
+      }
+    } catch (IOException | InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   private static void mineNewBlock() {
@@ -115,8 +138,9 @@ public class Main {
   }
 
   private static void showActivePeers() {
-    out.println("Currently active # of peer(s): " + network.getP2p().getPeers().size() + ".... [x] marks your active peer");
-    for (Peer peer : network.getP2p().getPeers()) {
+    List<Peer> peers = network.getPeers();
+    out.println("Currently active # of peer(s): " + peers.size() + ".... [x] marks your active peer");
+    for (Peer peer : peers) {
       if (peer.equals(Main.peer)) {
         out.print("[x] ");
       }
@@ -132,6 +156,7 @@ public class Main {
     out.println("Enter 3 to show the Current Balance inside your Wallet");
     out.println("Enter 4 to show Current Block Chain");
     out.println("Enter 5 Mine New Block");
+    out.println("Enter 6 to show Total Value Of Coins In the System");
     out.println("Enter x to disconnect from Peer Network");
     out.println("---------------------------------------");
   }
