@@ -27,6 +27,7 @@ import peer.Peer;
 import peer.Role;
 import peer.Sender;
 import peer.SingleReceiver;
+import transaction.Transaction;
 import transaction.UpcomingTransaction;
 
 public class Main {
@@ -67,7 +68,7 @@ public class Main {
     MultiReceiver multiReceiver = new MultiReceiver(peer, network);
     multiReceiver.start();
 
-    SingleReceiver singleReceiver = new SingleReceiver(peer, network);
+    SingleReceiver singleReceiver = new SingleReceiver(peer, network, wallet);
     singleReceiver.start();
 
     sendHello(peer);
@@ -91,10 +92,10 @@ public class Main {
           showActivePeers();
           break;
         }
-//        case "2" -> {
-//          createNewTransaction();
-//          break;
-//        }
+        case "2" -> {
+          createNewTransaction();
+          break;
+        }
         case "3" -> {
           showCurrentBalanceOfWallet();
           break;
@@ -111,10 +112,10 @@ public class Main {
 //          showTotalValueOfCoinsInSystem();
 //          break;
 //        }
-//        case "7" -> {
-//          showActiveTransactions();
-//          break;
-//        }
+        case "7" -> {
+          showActiveTransactions();
+          break;
+        }
         case "x" -> {
           out.println("Thanks for using FelCoin Peer Network");
           if (network.getPeers().size() > 1 && peer.hasRole(MINER)) {
@@ -131,10 +132,11 @@ public class Main {
     }
   }
 
-  //  private static void showActiveTransactions() {
-//    network.printTransactions();
-//  }
-//
+  private static void showActiveTransactions() {
+    network.printTransactions();
+  }
+
+  //
 //  private static void showTotalValueOfCoinsInSystem() {
 //    out.println("The total amount of Coins in Rotation is " + network.getSystemBalance().values().stream().mapToInt(Double::intValue).sum());
 //  }
@@ -152,23 +154,26 @@ public class Main {
       upcomingTransaction.addSignaturePublicKey(signaturePublicKey);
       network.addUpcomingTransaction(upcomingTransaction);
 
-//      network.proposeUpcomingTransactionToValidators(upcomingTransaction, peer);
-//      Thread.sleep(1000);//Wait for Validators
-//      upcomingTransaction = network.findUpcomingTransaction(upcomingTransaction);
-////      if (upcomingTransaction.getValidated() >= network.findActiveValidatorsInNetwork()) {
-//      Transaction transaction = new Transaction(upcomingTransaction, signaturePublicKey);
-//      network.addTransaction(transaction);
-//      network.removeUpcomingTransaction(upcomingTransaction);
-//      }
-    } catch (IOException e) {
+      Sender.proposeUpcomingTransactionToValidators(upcomingTransaction, peer);
+      Thread.sleep(1000);//Wait for Validators
+      if (network.getAmountOfSignedUpcomingTransactions(upcomingTransaction) >= network.findActiveValidatorsInNetwork() / 2) {
+        network.removeUpcomingTransaction(upcomingTransaction);
+        Sender.sendCoins(upcomingTransaction,peer, network);
+        wallet.removeBalance(upcomingTransaction.getAmount());
+      } else {
+        network.removeTransaction(new Transaction(upcomingTransaction, signaturePublicKey));
+      }
+    } catch (IOException | InterruptedException e) {
       e.printStackTrace();
     }
   }
 
   private static void mineNewBlock() {
     //ToDo: Only Allow when there are transactions in the System
-    Block block = Miner.mineNewBlock(wallet, network.getBlockchain());
-    Sender.sendBlock(block, peer);
+    if (peer.hasRole(MINER) && network.hasTransactions()) {
+      Block block = Miner.mineNewBlock(wallet, network.getBlockchain());
+      Sender.sendBlock(block, peer);
+    }
   }
 
   private static void showCurrentBalanceOfWallet() {

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Balance implements Serializable {
 
   private final String name;
-  private final double amount;
+  private double amount;
 
   public Balance(double startingValue) {
     this.name = "Felcoin";
@@ -18,5 +18,9 @@ public class Balance implements Serializable {
 
   public double getAmount() {
     return amount;
+  }
+
+  public void addOrRemoveCoins(double amount) {
+    this.amount = this.amount + amount;
   }
 }

@@ -14,18 +14,16 @@ public class UpcomingTransaction implements Serializable {
 
   private Peer sender;
   private String receiver;
-  private int amount;
+  private double amount;
   private SignaturePublicKey signaturePublicKey;
-  private int validated;
 
   public UpcomingTransaction() {
   }
 
-  public UpcomingTransaction(Peer sender, String receiver, int amount) {
+  public UpcomingTransaction(Peer sender, String receiver, double amount) {
     this.sender = sender;
     this.receiver = receiver;
     this.amount = amount;
-    this.validated = 0;
   }
 
   public static UpcomingTransaction newUpcomingTransaction(Peer peer, Wallet wallet) throws IOException {
@@ -41,9 +39,6 @@ public class UpcomingTransaction implements Serializable {
     return new UpcomingTransaction(peer, receivingAddress, amount);
   }
 
-  public void validate() {
-    validated++;
-  }
 
   public void addSignaturePublicKey(SignaturePublicKey signaturePublicKey) {
     this.signaturePublicKey = signaturePublicKey;
@@ -57,13 +52,10 @@ public class UpcomingTransaction implements Serializable {
     return receiver;
   }
 
-  public int getAmount() {
+  public double getAmount() {
     return amount;
   }
 
-  public int getValidated() {
-    return validated;
-  }
 
   public SignaturePublicKey getSignaturePublicKey() {
     return signaturePublicKey;

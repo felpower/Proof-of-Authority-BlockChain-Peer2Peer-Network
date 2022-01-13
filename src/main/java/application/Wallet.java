@@ -63,4 +63,12 @@ public class Wallet implements Serializable {
   public Balance getBalance() {
     return balance;
   }
+
+  public void removeBalance(double amount) {
+    this.balance.addOrRemoveCoins(-amount);
+  }
+
+  public void addBalance(double amount) {
+    this.balance.addOrRemoveCoins(amount);
+  }
 }

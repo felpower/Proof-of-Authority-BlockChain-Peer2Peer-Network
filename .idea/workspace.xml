@@ -4,28 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="Update gitIgnore">
-      <change afterPath="$PROJECT_DIR$/src/main/java/helper/IPHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/network/Packet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/peer/Sender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/peer/SingleReceiver.java" afterDir="false" />
+    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="Moved from Java RMI to new System with Multicast Receiver, for Messages that go to every Peer in Network and to DatagramSockets for receiving Messages that are only meant to be for 1 Peer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/Peer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/Role.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Wallet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Miner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Miner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/helper/RandomHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helper/RandomHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/helper/SignaturePublicKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helper/SignaturePublicKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/network/FelCoinSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/FelCoinSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/network/FunctionInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/network/Peer2PeerInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/network/Peer2PeerNetwork.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/network/RemoteHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/transaction/Transaction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/Packet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/peer/MultiReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/MultiReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/peer/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/Peer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/peer/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/Sender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/peer/SingleReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/SingleReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +83,7 @@
       <recent name="D:\Schule\Projekt1\51822498-patrick-felbauer" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="transaction" />
       <recent name="peer" />
       <recent name="peer2peer" />
       <recent name="blockchain" />
@@ -153,7 +145,7 @@
       <workItem from="1642003583992" duration="3757000" />
       <workItem from="1642013631935" duration="6541000" />
       <workItem from="1642021132864" duration="2765000" />
-      <workItem from="1642075880972" duration="864000" />
+      <workItem from="1642075880972" duration="4246000" />
     </task>
     <task id="LOCAL-00001" summary="Add README.md">
       <created>1636895405662</created>
@@ -225,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641319933412</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Moved from Java RMI to new System with Multicast Receiver, for Messages that go to every Peer in Network and to DatagramSockets for receiving Messages that are only meant to be for 1 Peer">
+      <created>1642077260429</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1642077260429</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,7 +252,8 @@
     <MESSAGE value="fixed error in synchronization of blocks" />
     <MESSAGE value="Updated the Transaction Network a bit, not yet working due to Sync Errors, but close" />
     <MESSAGE value="Update gitIgnore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update gitIgnore" />
+    <MESSAGE value="Moved from Java RMI to new System with Multicast Receiver, for Messages that go to every Peer in Network and to DatagramSockets for receiving Messages that are only meant to be for 1 Peer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved from Java RMI to new System with Multicast Receiver, for Messages that go to every Peer in Network and to DatagramSockets for receiving Messages that are only meant to be for 1 Peer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

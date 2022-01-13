@@ -88,4 +88,8 @@ public class Peer implements Serializable {
   public boolean hasPort(int port) {
     return this.port == port;
   }
+
+  public boolean hasAddress(String address) {
+   return this.address.equals(address);
+  }
 }

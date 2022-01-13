@@ -1,7 +1,6 @@
 package peer;
 
-import static peer.Role.MINER;
-
+import application.Wallet;
 import blockchain.Blockchain;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -18,11 +17,13 @@ public class SingleReceiver extends Thread {
 
   private final Peer peer;
   private final FelCoinSystem network;
+  private final Wallet wallet;
   private DatagramSocket socket;
 
-  public SingleReceiver(Peer peer, FelCoinSystem network) {
+  public SingleReceiver(Peer peer, FelCoinSystem network, Wallet wallet) {
     this.peer = peer;
     this.network = network;
+    this.wallet = wallet;
   }
 
   @Override
@@ -45,6 +46,11 @@ public class SingleReceiver extends Thread {
           case "resync":
             network.setBlockchain(packet.getBlockchain());
             break;
+          case "valTrans":
+            network.addTransaction(packet.getTransaction());
+            break;
+          case "sendCoins":
+            wallet.addBalance(packet.getAmount());
           default:
             ctd = false;
         }

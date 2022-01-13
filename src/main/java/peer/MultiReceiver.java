@@ -11,6 +11,7 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import network.FelCoinSystem;
 import network.Packet;
+import transaction.Transaction;
 
 /*
 Used this Docu here for Receiver and Sender to create Multicast Sockets for Peer2Peer Connection
@@ -65,6 +66,11 @@ public class MultiReceiver extends Thread {
           case "DC":
             System.out.println("Peer went offline: " + packet.getPeer());
             network.removePeer(packet.getPeer());
+            break;
+          case "upTrans":
+            Transaction transaction = new Transaction(packet.getUpcomingTransaction(), packet.getUpcomingTransaction().getSignaturePublicKey());
+            network.addTransaction(transaction);
+            Sender.validateTransaction(peer, transaction);
             break;
           default:
             ctd = false;

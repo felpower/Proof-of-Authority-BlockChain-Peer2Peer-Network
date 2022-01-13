@@ -17,6 +17,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import network.FelCoinSystem;
 import network.Packet;
+import transaction.Transaction;
+import transaction.UpcomingTransaction;
 
 /*
 Used this Docu here for Receiver and Sender to create Multicast Sockets for Peer2Peer Connection
@@ -55,6 +57,14 @@ public class Sender {
     }
   }
 
+  public static void proposeUpcomingTransactionToValidators(UpcomingTransaction upcomingTransaction, Peer peer) {
+    sendMultiPacket(new Packet("upTrans", peer, upcomingTransaction));
+  }
+
+  public static void validateTransaction(Peer peer, Transaction transaction) {
+    sendSinglePacket(new Packet("valTrans", peer, transaction), transaction.getPortFromCreater());
+  }
+
   public static void disconnectPeer(Peer peer) {
     sendMultiPacket(new Packet("DC", peer));
   }
@@ -83,5 +93,10 @@ public class Sender {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public static void sendCoins(UpcomingTransaction upcomingTransaction, Peer peer, FelCoinSystem network) {
+    Peer receiver = network.findPeerByWalletAdress(upcomingTransaction.getReceiver());
+    sendSinglePacket(new Packet("sendCoins", peer, upcomingTransaction.getAmount()), receiver.getPort());
   }
 }

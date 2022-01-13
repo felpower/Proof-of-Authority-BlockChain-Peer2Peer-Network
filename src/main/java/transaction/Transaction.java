@@ -13,6 +13,18 @@ public class Transaction implements Serializable {
     this.signaturePublicKey = signaturePublicKey;
   }
 
+  public int getPortFromCreater(){
+    return upcomingTransaction.getSender().getPort();
+  }
+
+  public UpcomingTransaction getUpcomingTransaction() {
+    return upcomingTransaction;
+  }
+
+  public SignaturePublicKey getSignaturePublicKey() {
+    return signaturePublicKey;
+  }
+
   @Override
   public String toString() {
     return "Transaction{" +

@@ -1,11 +1,16 @@
 package network;
 
 import static peer.Role.MINER;
+import static peer.Role.VALIDATOR;
 
 import blockchain.Block;
 import blockchain.Blockchain;
+import helper.SignaturePublicKey;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import peer.Peer;
 import peer.Sender;
@@ -16,8 +21,8 @@ public class FelCoinSystem {
 
   private final Set<Peer> peers = new HashSet<>();
   private Blockchain blockchain;
-  public List<Transaction> transactionList;
-  public List<UpcomingTransaction> upcomingTransactionList;
+  private Set<Transaction> transactionList = new HashSet<>();
+  private Map<UpcomingTransaction, List<SignaturePublicKey>> upcomingTransactions = new HashMap<>();
 
   public FelCoinSystem(Peer peer) {
     peers.add(peer);
@@ -54,11 +59,52 @@ public class FelCoinSystem {
     }
   }
 
+  public Peer findPeerByWalletAdress(String receiver) {
+return peers.stream().filter(peer -> peer.hasAddress(receiver)).findFirst().orElse(null);
+  }
+
+  public long findActiveValidatorsInNetwork() {
+    return getPeers().stream().filter(peer -> peer.hasRole(VALIDATOR)).count();
+  }
+
   public Peer addRoleMinerToPeerWithPort(int port) {
-    return peers.stream().filter(p->p.hasPort(port)).findFirst().map(peer -> peer.addRole(MINER)).orElse(null);
+    return peers.stream().filter(p -> p.hasPort(port)).findFirst().map(peer -> peer.addRole(MINER)).orElse(null);
+  }
+
+  public void addTransaction(Transaction transaction) {
+    transactionList.add(transaction);
+  }
+
+  public Map<UpcomingTransaction, List<SignaturePublicKey>> getUpcomingTransactions() {
+    return upcomingTransactions;
+  }
+
+  public int getAmountOfSignedUpcomingTransactions(UpcomingTransaction upcomingTransaction) {
+    return upcomingTransactions.get(upcomingTransaction).size();
   }
 
   public void addUpcomingTransaction(UpcomingTransaction upcomingTransaction) {
-    upcomingTransactionList.add(upcomingTransaction);
+    upcomingTransactions.put(upcomingTransaction, new ArrayList<>());
+  }
+
+  public void removeUpcomingTransaction(UpcomingTransaction upcomingTransaction) {
+    upcomingTransactions.remove(upcomingTransaction);
+  }
+
+  public void removeTransaction(Transaction transaction) {
+    transactionList.remove(transaction);
+  }
+
+  public void printTransactions() {
+    if (transactionList.isEmpty()) {
+      System.out.println("No Transactions in System");
+    }
+    for (Transaction transaction : transactionList) {
+      System.out.println(transaction.toString());
+    }
+  }
+
+  public boolean hasTransactions() {
+    return !transactionList.isEmpty();
   }
 }
