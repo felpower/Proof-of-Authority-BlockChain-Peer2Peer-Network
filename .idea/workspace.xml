@@ -4,22 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="fixed error in synchronization of blocks">
-      <change afterPath="$PROJECT_DIR$/src/main/java/application/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/helper/RandomHelper.java" afterDir="false" />
+    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="Update gitIgnore">
+      <change afterPath="$PROJECT_DIR$/src/main/java/helper/IPHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/network/Packet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/peer/Sender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/peer/SingleReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Peer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/Peer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/Role.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Wallet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Miner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Miner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/helper/RandomHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helper/RandomHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/helper/SignaturePublicKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helper/SignaturePublicKey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/network/FelCoinSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/FelCoinSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/network/FunctionInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/FunctionInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/network/Peer2PeerInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/Peer2PeerInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/network/Peer2PeerNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/Peer2PeerNetwork.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/network/RemoteHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/RemoteHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/FunctionInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/Peer2PeerInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/Peer2PeerNetwork.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/RemoteHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/transaction/Transaction.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +36,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -69,7 +75,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../TestProjekte/PeerBase" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -86,12 +92,13 @@
       <recent name="D:\Schule\Projekt1\51822498-patrick-felbauer" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="peer" />
       <recent name="peer2peer" />
       <recent name="blockchain" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true">
+    <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="application.Main" />
       <module name="51822498-patrick-felbauer" />
       <extension name="coverage">
@@ -136,7 +143,17 @@
       <workItem from="1641125614764" duration="3345000" />
       <workItem from="1641211973040" duration="6266000" />
       <workItem from="1641292194411" duration="4632000" />
-      <workItem from="1641315376244" duration="4338000" />
+      <workItem from="1641315376244" duration="4545000" />
+      <workItem from="1641391197510" duration="3513000" />
+      <workItem from="1641557568439" duration="629000" />
+      <workItem from="1641894783661" duration="3174000" />
+      <workItem from="1641928974836" duration="1921000" />
+      <workItem from="1641994797110" duration="3707000" />
+      <workItem from="1642000526256" duration="2375000" />
+      <workItem from="1642003583992" duration="3757000" />
+      <workItem from="1642013631935" duration="6541000" />
+      <workItem from="1642021132864" duration="2765000" />
+      <workItem from="1642075880972" duration="864000" />
     </task>
     <task id="LOCAL-00001" summary="Add README.md">
       <created>1636895405662</created>
@@ -194,7 +211,21 @@
       <option name="project" value="LOCAL" />
       <updated>1641234239417</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Updated the Transaction Network a bit, not yet working due to Sync Errors, but close">
+      <created>1641319826915</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1641319826915</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update gitIgnore">
+      <created>1641319933412</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1641319933412</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,21 +251,17 @@
     <MESSAGE value="javadoc + refactoring" />
     <MESSAGE value="completely revamped peer2peer network, now uses an RMI peer 2 peer Network. Added Miner, added start for Transaction. Added Options to Show active Peers in Network, create new Transaction(not fully working), show Current Balance of Wallet, Print current BlockChain(only works on first peer for now), Mining a new Block, Disconnecting from the Network" />
     <MESSAGE value="fixed error in synchronization of blocks" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed error in synchronization of blocks" />
+    <MESSAGE value="Updated the Transaction Network a bit, not yet working due to Sync Errors, but close" />
+    <MESSAGE value="Update gitIgnore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update gitIgnore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/application/Main.java</url>
-          <line>111</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/network/Peer2PeerNetwork.java</url>
-          <line>205</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.net.UnknownHostException" package="java.net" />
+          <option name="timeStamp" value="10" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>

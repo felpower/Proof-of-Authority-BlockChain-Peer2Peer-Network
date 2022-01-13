@@ -2,13 +2,13 @@ package transaction;
 
 import static java.lang.Integer.parseInt;
 
-import application.Peer;
 import application.Wallet;
 import helper.SignaturePublicKey;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import peer.Peer;
 
 public class UpcomingTransaction implements Serializable {
 

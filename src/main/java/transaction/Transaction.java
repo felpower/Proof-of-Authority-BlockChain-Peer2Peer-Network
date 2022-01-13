@@ -12,4 +12,11 @@ public class Transaction implements Serializable {
     this.upcomingTransaction = upcomingTransaction;
     this.signaturePublicKey = signaturePublicKey;
   }
+
+  @Override
+  public String toString() {
+    return "Transaction{" +
+        "upcomingTransaction=" + upcomingTransaction +
+        '}';
+  }
 }

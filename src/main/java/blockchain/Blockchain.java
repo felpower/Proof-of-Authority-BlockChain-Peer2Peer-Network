@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Blockchain implements Serializable {
 
-  public final List<Block> blockchain = new ArrayList<>();
+  private final List<Block> blockchain = new ArrayList<>();
 
   public Blockchain() {
     Block genesis = new Block(0, "Genesis", null, new Date().getTime(), new ArrayList<>(), new SignaturePublicKey());
@@ -22,7 +22,12 @@ public class Blockchain implements Serializable {
       blockchain.add(b);
       return true;
     }
+    System.out.println("Could not verify Block");
     return false;
+  }
+
+  public List<Block> getBlocks() {
+    return blockchain;
   }
 
   protected boolean verifyBlock(Block newBlock) {

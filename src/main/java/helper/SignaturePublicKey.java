@@ -8,7 +8,6 @@ import java.security.KeyPair;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.util.Arrays;
-import transaction.UpcomingTransaction;
 
 public class SignaturePublicKey implements Serializable {
 
@@ -32,15 +31,23 @@ public class SignaturePublicKey implements Serializable {
   }
 
 
-  public static boolean signTransaction(UpcomingTransaction upcomingTransaction, KeyPair keyPair) {
-    try {
-      Signature signature = getInstance("ECDSA", PROVIDER_NAME);
-      signature.initSign(keyPair.getPrivate());
-      signature.update(upcomingTransaction.toString().getBytes());
-      return signature.verify(upcomingTransaction.getSignaturePublicKey().signature);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return false;
+//  public static boolean signTransaction(UpcomingTransaction upcomingTransaction, KeyPair keyPair) {
+//    try {
+//      Signature signature = getInstance("ECDSA", PROVIDER_NAME);
+//      signature.initSign(keyPair.getPrivate());
+//      signature.update(upcomingTransaction.toString().getBytes());
+//      return signature.verify(upcomingTransaction.getSignaturePublicKey().signature);
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    return false;
+//  }
+
+  @Override
+  public String toString() {
+    return "SignaturePublicKey{" +
+        "signature=" + Arrays.toString(signature) +
+        ", publicKeyEncoded=" + Arrays.toString(publicKeyEncoded) +
+        '}';
   }
 }

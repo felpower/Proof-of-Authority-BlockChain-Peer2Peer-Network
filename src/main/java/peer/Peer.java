@@ -1,18 +1,22 @@
-package application;
+package peer;
 
 import static helper.HashCode.applySha256;
 import static java.util.Objects.hash;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.KeyPair;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Peer implements Serializable {
 
   private int port;
   private String username;
   private String address;
-  private KeyPair keyPair;
-  private Role role;
+  private final Set<Role> roleList = new HashSet<>();
 
   public Peer() {
     // deserializer for Jackson
@@ -21,9 +25,8 @@ public class Peer implements Serializable {
   public Peer(int port, String username, KeyPair keyPair, Role role) {
     this.port = port;
     this.username = username;
-    this.keyPair = keyPair;
     this.address = applySha256(new String(keyPair.getPublic().getEncoded()));
-    this.role = role;
+    this.roleList.add(role);
   }
 
   public int getPort() {
@@ -38,12 +41,12 @@ public class Peer implements Serializable {
     return address;
   }
 
-  public KeyPair getKeyPair() {
-    return keyPair;
+  public Set<Role> getRoles() {
+    return roleList;
   }
 
-  public Role getRole() {
-    return role;
+  public boolean hasRole(Role role) {
+    return roleList.contains(role);
   }
 
   public String getUrl() {
@@ -73,8 +76,16 @@ public class Peer implements Serializable {
         "port=" + port +
         ", username='" + username + '\'' +
         ", address='" + address + '\'' +
-        ", keyPair=" + keyPair +
-        ", role=" + role +
+        ", roleList=" + roleList +
         '}';
+  }
+
+  public Peer addRole(Role role) {
+    this.roleList.add(role);
+    return this;
+  }
+
+  public boolean hasPort(int port) {
+    return this.port == port;
   }
 }
