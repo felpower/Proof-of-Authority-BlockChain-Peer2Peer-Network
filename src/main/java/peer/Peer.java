@@ -1,14 +1,13 @@
 package peer;
 
 import static helper.HashCode.applySha256;
+import static java.time.LocalTime.now;
 import static java.util.Objects.hash;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.security.KeyPair;
-import java.util.ArrayList;
+import java.time.LocalTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Peer implements Serializable {
@@ -16,6 +15,7 @@ public class Peer implements Serializable {
   private int port;
   private String username;
   private String address;
+  public long lastHearbeat;
   private final Set<Role> roleList = new HashSet<>();
 
   public Peer() {
@@ -27,6 +27,7 @@ public class Peer implements Serializable {
     this.username = username;
     this.address = applySha256(new String(keyPair.getPublic().getEncoded()));
     this.roleList.add(role);
+    this.lastHearbeat = now().toNanoOfDay();
   }
 
   public int getPort() {
@@ -90,6 +91,17 @@ public class Peer implements Serializable {
   }
 
   public boolean hasAddress(String address) {
-   return this.address.equals(address);
+    return this.address.equals(address);
+  }
+
+  public Peer isAlive(LocalTime now) {
+    if (now.isAfter(LocalTime.ofNanoOfDay(lastHearbeat).plusSeconds(10))) {
+      return this;
+    }
+    return null;
+  }
+
+  public void updateLastHeartbeat() {
+    this.lastHearbeat = now().toNanoOfDay();
   }
 }

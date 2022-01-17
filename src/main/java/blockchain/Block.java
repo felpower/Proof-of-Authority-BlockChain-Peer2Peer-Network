@@ -4,7 +4,9 @@ import helper.HashCode;
 import helper.SignaturePublicKey;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import transaction.Transaction;
 
 public class Block implements Serializable {
 
@@ -13,7 +15,7 @@ public class Block implements Serializable {
   //The hash of this block, calculated based on other data
   public String hash;
   //The list of Transactions
-  public List<String> transactions;
+  public Set<Transaction> transactions = new HashSet<>();
 
   // Data to make the Block unique
   public Header header;
@@ -23,21 +25,21 @@ public class Block implements Serializable {
       String merkleRoot,
       String previousHash,
       long timestamp,
-      List<String> transactions,
+      Set<Transaction> transactions,
       SignaturePublicKey signaturePublicKey) {
     this.header = new Header(previousHash, timestamp, nonce, merkleRoot);
     this.signaturePublicKey = signaturePublicKey;
-    this.transactions = transactions;
+    this.transactions.addAll(transactions);
     this.hash = calculateHash(nonce, merkleRoot, previousHash, timestamp);
   }
 
   public Block(
       Header header,
-      List<String> transactions,
+      Set<Transaction> transactions,
       SignaturePublicKey signaturePublicKey) {
     this.header = new Header(header.previousHash, header.timestamp, header.nonce, header.merkleRoot);
     this.signaturePublicKey = signaturePublicKey;
-    this.transactions = transactions;
+    this.transactions.addAll(transactions);
     this.hash = calculateHash(header.nonce, header.merkleRoot, header.previousHash, header.timestamp);
   }
 
@@ -83,7 +85,7 @@ public class Block implements Serializable {
         '}';
   }
 
-  public static class Header implements Serializable{
+  public static class Header implements Serializable {
 
     //Hash of the previous block, an important part to build the chain
     public String previousHash;

@@ -5,6 +5,7 @@ import static blockchain.Block.calculateHash;
 import helper.SignaturePublicKey;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Blockchain implements Serializable {
   private final List<Block> blockchain = new ArrayList<>();
 
   public Blockchain() {
-    Block genesis = new Block(0, "Genesis", null, new Date().getTime(), new ArrayList<>(), new SignaturePublicKey());
+    Block genesis = new Block(0, "root", null, new Date().getTime(), Collections.emptySet(), new SignaturePublicKey());
     blockchain.add(genesis);
   }
 

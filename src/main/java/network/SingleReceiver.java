@@ -1,4 +1,4 @@
-package peer;
+package network;
 
 import application.Wallet;
 import blockchain.Blockchain;
@@ -6,8 +6,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import network.FelCoinSystem;
-import network.Packet;
+import peer.Peer;
 
 /*
 Used this Docu here for Receiver and Sender to create Multicast Sockets for Peer2Peer Connection

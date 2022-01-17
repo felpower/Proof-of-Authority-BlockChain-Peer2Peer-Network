@@ -1,16 +1,16 @@
-package peer;
+package network;
 
 import static helper.IPHelper.getGroup;
 import static helper.IPHelper.getPort;
-import static peer.Sender.acknowledgeHello;
+import static network.Sender.acknowledgeHello;
 
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import network.FelCoinSystem;
-import network.Packet;
+import java.util.Optional;
+import peer.Peer;
 import transaction.Transaction;
 
 /*
@@ -43,11 +43,16 @@ public class MultiReceiver extends Thread {
         String received = new String(datagramPacket.getData(), 0, datagramPacket.getLength());
         Packet packet = new Gson().fromJson(received, Packet.class);
         switch (packet.getAction()) {
+          case "heartbeat":
+            Optional<Peer> peer = network.findPeer(packet.getPeer());
+            peer.ifPresent(Peer::updateLastHeartbeat);
+            network.checkHeartbeat(this.peer);
+            break;
           case "New Peer":
-            if (!packet.getPeer().equals(peer)) {
+            if (!packet.getPeer().equals(this.peer)) {
               network.addPeer(packet.getPeer());
               System.out.println("New Peer in System: " + packet.getPeer());
-              acknowledgeHello(peer);
+              acknowledgeHello(this.peer);
             }
             break;
           case "Ack":
@@ -70,7 +75,10 @@ public class MultiReceiver extends Thread {
           case "upTrans":
             Transaction transaction = new Transaction(packet.getUpcomingTransaction(), packet.getUpcomingTransaction().getSignaturePublicKey());
             network.addTransaction(transaction);
-            Sender.validateTransaction(peer, transaction);
+            Sender.validateTransaction(this.peer, transaction);
+            break;
+          case "remTrans":
+            network.removeTransaction(packet.getTransaction());
             break;
           default:
             ctd = false;

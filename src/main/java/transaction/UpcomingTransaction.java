@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.util.Objects;
 import peer.Peer;
 
 public class UpcomingTransaction implements Serializable {
@@ -59,6 +60,24 @@ public class UpcomingTransaction implements Serializable {
 
   public SignaturePublicKey getSignaturePublicKey() {
     return signaturePublicKey;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UpcomingTransaction that = (UpcomingTransaction) o;
+    return Double.compare(that.getAmount(), getAmount()) == 0 && getSender().equals(that.getSender()) && getReceiver().equals(
+        that.getReceiver()) && getSignaturePublicKey().equals(that.getSignaturePublicKey());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getSender(), getReceiver(), getAmount(), getSignaturePublicKey());
   }
 
   @Override

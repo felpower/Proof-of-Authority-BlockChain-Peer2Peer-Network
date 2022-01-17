@@ -6,14 +6,17 @@ import static peer.Role.VALIDATOR;
 import blockchain.Block;
 import blockchain.Blockchain;
 import helper.SignaturePublicKey;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import peer.Peer;
-import peer.Sender;
 import transaction.Transaction;
 import transaction.UpcomingTransaction;
 
@@ -21,12 +24,12 @@ public class FelCoinSystem {
 
   private final Set<Peer> peers = new HashSet<>();
   private Blockchain blockchain;
-  private Set<Transaction> transactionList = new HashSet<>();
-  private Map<UpcomingTransaction, List<SignaturePublicKey>> upcomingTransactions = new HashMap<>();
+  private final Set<Transaction> transactionList = new HashSet<>();
+  private final Map<UpcomingTransaction, List<SignaturePublicKey>> upcomingTransactions = new HashMap<>();
 
   public FelCoinSystem(Peer peer) {
     peers.add(peer);
-    this.blockchain = new Blockchain();
+    blockchain = new Blockchain();
   }
 
   public Set<Peer> getPeers() {
@@ -60,7 +63,7 @@ public class FelCoinSystem {
   }
 
   public Peer findPeerByWalletAdress(String receiver) {
-return peers.stream().filter(peer -> peer.hasAddress(receiver)).findFirst().orElse(null);
+    return peers.stream().filter(peer -> peer.hasAddress(receiver)).findFirst().orElse(null);
   }
 
   public long findActiveValidatorsInNetwork() {
@@ -106,5 +109,30 @@ return peers.stream().filter(peer -> peer.hasAddress(receiver)).findFirst().orEl
 
   public boolean hasTransactions() {
     return !transactionList.isEmpty();
+  }
+
+  public void checkHeartbeat(Peer localPeer) {
+    List<Peer> deadPeers = peers.stream()
+        .map(peer -> peer.isAlive(LocalTime.now()))
+        .filter(Objects::nonNull)
+        .filter(peer -> !peer.equals(localPeer))
+        .collect(Collectors.toList());
+
+    if (deadPeers.size() >= 1) {
+      Optional<Peer> miner = deadPeers.stream().filter(peer -> peer.hasRole(MINER)).findFirst();
+      if (miner.isPresent()) {
+        Sender.chooseMiner(localPeer, this);
+      }
+      deadPeers.forEach(peers::remove);
+      System.out.println("Removed the following Peers, because no Heartbeat was sent in the last 10 seconds" + deadPeers);
+    }
+  }
+
+  public Optional<Peer> findPeer(Peer peer) {
+    return peers.stream().filter(peer1 -> peer1.hasAddress(peer.getAddress())).findFirst();
+  }
+
+  public Set<Transaction> getTransactions() {
+    return transactionList;
   }
 }

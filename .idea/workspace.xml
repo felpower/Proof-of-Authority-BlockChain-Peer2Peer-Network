@@ -4,19 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="Moved from Java RMI to new System with Multicast Receiver, for Messages that go to every Peer in Network and to DatagramSockets for receiving Messages that are only meant to be for 1 Peer">
+    <list default="true" id="da3226d3-786a-4cdb-84ec-f6a1db04093f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/blockchain/MerkleTree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/blockchain/MerkleTrees.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/network/HeartbeatSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Wallet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Balance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Miner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Miner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/network/FelCoinSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/FelCoinSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/network/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/Packet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer/MultiReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/MultiReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/peer/MultiReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/MultiReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/peer/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/Peer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/Sender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer/SingleReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/SingleReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/peer/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/Sender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/peer/SingleReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/SingleReceiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BlockChain/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BlockChain/Block.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +32,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
-        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -40,56 +44,53 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/java/blockchain/Block.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/application/Wallet.java" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="20uX5mxf9PnSMVxN9Ct7WcTR6nS" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="23n7Zps720Tppx8TNomdJBnmrZl" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../TestProjekte/PeerBase" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
-    <property name="vue.rearranger.settings.migration" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TestProjekte/p2p-blockchain" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="transaction" />
-      <recent name="network" />
-      <recent name="application" />
-      <recent name="peer2peer" />
-      <recent name="blockchain" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Schule\Projekt1\51822498-patrick-felbauer" />
-    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="transaction" />
-      <recent name="peer" />
-      <recent name="peer2peer" />
-      <recent name="blockchain" />
+      <recent name="network" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="FelCoinSystem" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="network.FelCoinSystem" />
+      <module name="51822498-patrick-felbauer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="network.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="application.Main" />
       <module name="51822498-patrick-felbauer" />
@@ -103,171 +104,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.FelCoinSystem" />
+      <item itemvalue="Application.Main" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.FelCoinSystem" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a96a287c-f898-478c-b7e4-e83564595442" name="Changes" comment="" />
-      <created>1636895265960</created>
+      <changelist id="da3226d3-786a-4cdb-84ec-f6a1db04093f" name="Changes" comment="" />
+      <created>1642358060882</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1636895265960</updated>
-      <workItem from="1636895267201" duration="3125000" />
-      <workItem from="1636901467842" duration="784000" />
-      <workItem from="1636993356195" duration="1633000" />
-      <workItem from="1637045218448" duration="49000" />
-      <workItem from="1637241824187" duration="1810000" />
-      <workItem from="1637736331149" duration="96000" />
-      <workItem from="1638302829767" duration="130000" />
-      <workItem from="1638521838963" duration="4650000" />
-      <workItem from="1638531969038" duration="9378000" />
-      <workItem from="1638610156122" duration="1717000" />
-      <workItem from="1638972052269" duration="921000" />
-      <workItem from="1640869914712" duration="5178000" />
-      <workItem from="1640878918239" duration="1791000" />
-      <workItem from="1640881940012" duration="7540000" />
-      <workItem from="1640961061227" duration="3691000" />
-      <workItem from="1641125614764" duration="3345000" />
-      <workItem from="1641211973040" duration="6266000" />
-      <workItem from="1641292194411" duration="4632000" />
-      <workItem from="1641315376244" duration="4545000" />
-      <workItem from="1641391197510" duration="3513000" />
-      <workItem from="1641557568439" duration="629000" />
-      <workItem from="1641894783661" duration="3174000" />
-      <workItem from="1641928974836" duration="1921000" />
-      <workItem from="1641994797110" duration="3707000" />
-      <workItem from="1642000526256" duration="2375000" />
-      <workItem from="1642003583992" duration="3757000" />
-      <workItem from="1642013631935" duration="6541000" />
-      <workItem from="1642021132864" duration="2765000" />
-      <workItem from="1642075880972" duration="4246000" />
+      <updated>1642358060882</updated>
+      <workItem from="1642358061178" duration="159000" />
+      <workItem from="1642358239973" duration="596000" />
+      <workItem from="1642415389511" duration="5469000" />
     </task>
-    <task id="LOCAL-00001" summary="Add README.md">
-      <created>1636895405662</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1636895405662</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Add README.md">
-      <created>1636895471072</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1636895471072</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Added Wallets and Private/Public Keys">
-      <created>1636901529138</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1636901529138</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Added Wallets and Private/Public Keys">
-      <created>1636901553481</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1636901553482</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Added Wallets and Private/Public Keys">
-      <created>1636901614113</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1636901614113</updated>
-    </task>
-    <task id="LOCAL-00006" summary="javadoc + refactoring">
-      <created>1636994989719</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1636994989720</updated>
-    </task>
-    <task id="LOCAL-00007" summary="completely revamped peer2peer network, now uses an RMI peer 2 peer Network. Added Miner, added start for Transaction. Added Options to Show active Peers in Network, create new Transaction(not fully working), show Current Balance of Wallet, Print current BlockChain(only works on first peer for now), Mining a new Block, Disconnecting from the Network">
-      <created>1641212266338</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1641212266338</updated>
-    </task>
-    <task id="LOCAL-00008" summary="fixed error in synchronization of blocks">
-      <created>1641234239417</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1641234239417</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Updated the Transaction Network a bit, not yet working due to Sync Errors, but close">
-      <created>1641319826915</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1641319826915</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Update gitIgnore">
-      <created>1641319933412</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1641319933412</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Moved from Java RMI to new System with Multicast Receiver, for Messages that go to every Peer in Network and to DatagramSockets for receiving Messages that are only meant to be for 1 Peer">
-      <created>1642077260429</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1642077260429</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/BlockChainP1" />
-    </ignored-roots>
-    <MESSAGE value="Add README.md" />
-    <MESSAGE value="Added Wallets and Private/Public Keys" />
-    <MESSAGE value="javadoc + refactoring" />
-    <MESSAGE value="completely revamped peer2peer network, now uses an RMI peer 2 peer Network. Added Miner, added start for Transaction. Added Options to Show active Peers in Network, create new Transaction(not fully working), show Current Balance of Wallet, Print current BlockChain(only works on first peer for now), Mining a new Block, Disconnecting from the Network" />
-    <MESSAGE value="fixed error in synchronization of blocks" />
-    <MESSAGE value="Updated the Transaction Network a bit, not yet working due to Sync Errors, but close" />
-    <MESSAGE value="Update gitIgnore" />
-    <MESSAGE value="Moved from Java RMI to new System with Multicast Receiver, for Messages that go to every Peer in Network and to DatagramSockets for receiving Messages that are only meant to be for 1 Peer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved from Java RMI to new System with Multicast Receiver, for Messages that go to every Peer in Network and to DatagramSockets for receiving Messages that are only meant to be for 1 Peer" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.net.UnknownHostException" package="java.net" />
-          <option name="timeStamp" value="10" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-    <pin-to-top-manager>
-      <pinned-members>
-        <PinnedItemInfo parentTag="network.FelCoinSystem" memberName="blockchain" />
-      </pinned-members>
-    </pin-to-top-manager>
   </component>
 </project>

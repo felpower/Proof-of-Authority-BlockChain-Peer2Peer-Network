@@ -2,6 +2,7 @@ package transaction;
 
 import helper.SignaturePublicKey;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Transaction implements Serializable {
 
@@ -23,6 +24,23 @@ public class Transaction implements Serializable {
 
   public SignaturePublicKey getSignaturePublicKey() {
     return signaturePublicKey;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Transaction that = (Transaction) o;
+    return getUpcomingTransaction().equals(that.getUpcomingTransaction()) && getSignaturePublicKey().equals(that.getSignaturePublicKey());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getUpcomingTransaction(), getSignaturePublicKey());
   }
 
   @Override

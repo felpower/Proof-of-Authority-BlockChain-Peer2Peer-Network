@@ -1,4 +1,4 @@
-package peer;
+package network;
 
 import static helper.IPHelper.getPort;
 import static helper.RandomHelper.getRandomPeer;
@@ -15,8 +15,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import network.FelCoinSystem;
-import network.Packet;
+import peer.Peer;
 import transaction.Transaction;
 import transaction.UpcomingTransaction;
 
@@ -28,6 +27,10 @@ public class Sender {
 
   public static void sendHello(Peer peer) {
     sendMultiPacket(new Packet("New Peer", peer));
+  }
+
+  public static void sendHeartbeat(Peer peer) {
+    sendMultiPacket(new Packet("heartbeat", peer));
   }
 
   public static void acknowledgeHello(Peer peer) {
@@ -99,4 +102,10 @@ public class Sender {
     Peer receiver = network.findPeerByWalletAdress(upcomingTransaction.getReceiver());
     sendSinglePacket(new Packet("sendCoins", peer, upcomingTransaction.getAmount()), receiver.getPort());
   }
+
+  public static void removeTransaction(Peer peer, Transaction transaction) {
+    sendMultiPacket(new Packet("remTrans", peer, transaction));
+  }
+
+
 }

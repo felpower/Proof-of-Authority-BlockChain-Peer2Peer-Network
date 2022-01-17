@@ -5,10 +5,11 @@ import static java.lang.System.exit;
 import static java.lang.System.in;
 import static java.lang.System.out;
 import static java.security.Security.addProvider;
+import static network.Sender.removeTransaction;
+import static network.Sender.sendHello;
+import static network.Sender.synchronizeBlockchain;
 import static peer.Role.MINER;
 import static peer.Role.VALIDATOR;
-import static peer.Sender.sendHello;
-import static peer.Sender.synchronizeBlockchain;
 import static transaction.UpcomingTransaction.newUpcomingTransaction;
 
 import blockchain.Block;
@@ -21,12 +22,13 @@ import java.io.InputStreamReader;
 import java.security.KeyPair;
 import java.util.Set;
 import network.FelCoinSystem;
+import network.HeartbeatSender;
+import network.MultiReceiver;
+import network.Sender;
+import network.SingleReceiver;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import peer.MultiReceiver;
 import peer.Peer;
 import peer.Role;
-import peer.Sender;
-import peer.SingleReceiver;
 import transaction.Transaction;
 import transaction.UpcomingTransaction;
 
@@ -70,6 +72,9 @@ public class Main {
 
     SingleReceiver singleReceiver = new SingleReceiver(peer, network, wallet);
     singleReceiver.start();
+
+    HeartbeatSender heartbeatSender = new HeartbeatSender(peer);
+    heartbeatSender.start();
 
     sendHello(peer);
 
@@ -158,10 +163,12 @@ public class Main {
       Thread.sleep(1000);//Wait for Validators
       if (network.getAmountOfSignedUpcomingTransactions(upcomingTransaction) >= network.findActiveValidatorsInNetwork() / 2) {
         network.removeUpcomingTransaction(upcomingTransaction);
-        Sender.sendCoins(upcomingTransaction,peer, network);
+        Sender.sendCoins(upcomingTransaction, peer, network);
         wallet.removeBalance(upcomingTransaction.getAmount());
       } else {
-        network.removeTransaction(new Transaction(upcomingTransaction, signaturePublicKey));
+        Transaction transaction = new Transaction(upcomingTransaction, signaturePublicKey);
+        network.removeTransaction(transaction);
+        removeTransaction(peer, transaction);
       }
     } catch (IOException | InterruptedException e) {
       e.printStackTrace();
@@ -169,11 +176,17 @@ public class Main {
   }
 
   private static void mineNewBlock() {
-    //ToDo: Only Allow when there are transactions in the System
-    if (peer.hasRole(MINER) && network.hasTransactions()) {
-      Block block = Miner.mineNewBlock(wallet, network.getBlockchain());
-      Sender.sendBlock(block, peer);
+    //Only Allow when there are transactions in the System, and you are the Miner
+    if (!peer.hasRole(MINER)) {
+      out.println("You can not mine new Blocks as you are not the miner");
+      return;
+    } else if (network.hasTransactions()) {
+      out.println("There are no active Transactions you can mine into a new Block");
+      return;
     }
+    Block block = Miner.mineNewBlock(wallet, network);
+    Sender.sendBlock(block, peer);
+    network.getTransactions().clear();
   }
 
   private static void showCurrentBalanceOfWallet() {
