@@ -71,11 +71,6 @@ public class Block implements Serializable {
     return signaturePublicKey;
   }
 
-
-  public Header getHeader() {
-    return header;
-  }
-
   @Override
   public String toString() {
     return "Block{" +

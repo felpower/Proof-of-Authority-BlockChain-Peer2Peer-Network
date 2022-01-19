@@ -65,8 +65,8 @@ public class MultiReceiver extends Thread {
           case "block":
             if (!network.getBlockchain().getBlocks().contains(packet.getBlock())) {
               System.out.println("Received new Block: " + packet.getBlock());
-              if(network.addBlock(packet.getBlock())){
-                network.getTransactions().clear();
+              if (network.addBlock(packet.getBlock())) {
+                network.getTransactionSet().clear();
               }
             }
             break;
@@ -82,9 +82,7 @@ public class MultiReceiver extends Thread {
             System.out.println("Received UpTrans");
             UpcomingTransaction upcomingTransaction = packet.getUpcomingTransaction();
             //Check if UpcomingTransaction is valid
-            if (!this.peer.equals(packet.getPeer())) {
-              network.addUpcomingTransaction(upcomingTransaction);
-            }
+            network.addUpcomingTransaction(upcomingTransaction);
             SignaturePublicKey signaturePublicKey = new SignaturePublicKey(wallet.signTransaction(upcomingTransaction),
                 wallet.getKeyPair().getPublic());
             Sender.validatedUpcomingTransaction(this.peer, packet.getPeer(), upcomingTransaction, signaturePublicKey);

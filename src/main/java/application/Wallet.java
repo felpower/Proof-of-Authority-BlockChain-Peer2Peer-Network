@@ -17,8 +17,8 @@ public class Wallet implements Serializable {
   private final KeyPair keyPair;
   // The address of the Walled
   private final String address;
-  // The Current balance of the Wallet
-  private Balance balance;
+  // The Current balance of the Wallet. Make into List/Map when there are multiple coins stored in the wallet
+  private final Balance balance;
 
   public Wallet(KeyPair keyPair) {
     this.keyPair = keyPair;

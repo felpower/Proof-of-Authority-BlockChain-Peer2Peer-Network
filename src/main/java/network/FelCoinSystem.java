@@ -23,8 +23,8 @@ public class FelCoinSystem {
 
   private final Set<Peer> peers = new HashSet<>();
   private Blockchain blockchain;
-  private Set<Transaction> transactions = new HashSet<>();
-  private Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions = new HashMap<>();
+  private Set<Transaction> transactionSet = new HashSet<>();
+  private Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactionMap = new HashMap<>();
 
   public FelCoinSystem(Peer peer) {
     peers.add(peer);
@@ -47,12 +47,12 @@ public class FelCoinSystem {
     return blockchain;
   }
 
-  public boolean addBlock(Block block) {
-   return blockchain.addBlock(block);
-  }
-
   public void setBlockchain(Blockchain blockchain) {
     this.blockchain = blockchain;
+  }
+
+  public boolean addBlock(Block block) {
+    return blockchain.addBlock(block);
   }
 
   public void chooseMiner(Peer peer) {
@@ -74,32 +74,32 @@ public class FelCoinSystem {
   }
 
   public void addTransaction(Transaction transaction) {
-    transactions.add(transaction);
+    transactionSet.add(transaction);
   }
 
   public int getAmountOfSignedUpcomingTransactions(UpcomingTransaction upcomingTransaction) {
-    return upcomingTransactions.get(upcomingTransaction).size();
+    return upcomingTransactionMap.get(upcomingTransaction).size();
   }
 
   public void addUpcomingTransaction(UpcomingTransaction upcomingTransaction) {
-    upcomingTransactions.put(upcomingTransaction, new HashSet<>());
+    upcomingTransactionMap.putIfAbsent(upcomingTransaction, new HashSet<>());
   }
 
   public void removeUpcomingTransaction(UpcomingTransaction upcomingTransaction) {
-    upcomingTransactions.remove(upcomingTransaction);
+    upcomingTransactionMap.remove(upcomingTransaction);
   }
 
   public void printTransactions() {
-    if (transactions.isEmpty()) {
+    if (transactionSet.isEmpty()) {
       System.out.println("No Transactions in System");
     }
-    for (Transaction transaction : transactions) {
+    for (Transaction transaction : transactionSet) {
       System.out.println(transaction.toString());
     }
   }
 
   public boolean hasTransactions() {
-    return !transactions.isEmpty();
+    return !transactionSet.isEmpty();
   }
 
   public void checkHeartbeat(Peer localPeer) {
@@ -123,23 +123,23 @@ public class FelCoinSystem {
     return peers.stream().filter(peer1 -> peer1.hasAddress(peer.getAddress())).findFirst();
   }
 
-  public Set<Transaction> getTransactions() {
-    return transactions;
+  public Set<Transaction> getTransactionSet() {
+    return transactionSet;
+  }
+
+  public void setTransactionSet(Set<Transaction> transactionSet) {
+    this.transactionSet = transactionSet;
   }
 
   public void addSignatureToUpcomingTransaction(UpcomingTransaction upcomingTransaction, SignaturePublicKey signaturePublicKey) {
-    upcomingTransactions.get(upcomingTransaction).add(signaturePublicKey);
+    upcomingTransactionMap.get(upcomingTransaction).add(signaturePublicKey);
   }
 
-  public Map<UpcomingTransaction, Set<SignaturePublicKey>> getUpcomingTransactions() {
-    return upcomingTransactions;
+  public Map<UpcomingTransaction, Set<SignaturePublicKey>> getUpcomingTransactionMap() {
+    return upcomingTransactionMap;
   }
 
-  public void setTransactions(Set<Transaction> transactions) {
-    this.transactions = transactions;
-  }
-
-  public void setUpcomingTransactions(Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions) {
-    this.upcomingTransactions = upcomingTransactions;
+  public void setUpcomingTransactionMap(Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactionMap) {
+    this.upcomingTransactionMap = upcomingTransactionMap;
   }
 }

@@ -3,7 +3,6 @@ package network;
 import static java.lang.System.out;
 
 import application.Wallet;
-import blockchain.Blockchain;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -11,7 +10,7 @@ import java.net.DatagramSocket;
 import peer.Peer;
 
 /*
-Used this Docu here for Receiver and Sender to create Multicast Sockets for Peer2Peer Connection
+Used this Documentation here for Receiver and Sender to create Multicast Sockets for Peer2Peer Connection
 https://docs.oracle.com/javase/7/docs/api/java/net/MulticastSocket.html
  */
 public class SingleReceiver extends Thread {
@@ -41,12 +40,12 @@ public class SingleReceiver extends Thread {
         Packet packet = new Gson().fromJson(received, Packet.class);
         switch (packet.getAction()) {
           case "sync":
-            Sender.sendCurrentBlockchain(network.getBlockchain(),network.getTransactions(),network.getUpcomingTransactions(), packet.getPeer());
+            Sender.sendCurrentBlockchain(network.getBlockchain(), network.getTransactionSet(), network.getUpcomingTransactionMap(), packet.getPeer());
             break;
-          case "resync":
+          case "rsync":
             network.setBlockchain(packet.getBlockchain());
-            network.setTransactions(packet.getTransactions());
-            network.setUpcomingTransactions(packet.getUpcomingTransactions());
+            network.setTransactionSet(packet.getTransactions());
+            network.setUpcomingTransactionMap(packet.getUpcomingTransactions());
             break;
           case "valUpTrans":
             network.addSignatureToUpcomingTransaction(packet.getUpcomingTransaction(), packet.getSignaturePublicKey());
@@ -56,7 +55,7 @@ public class SingleReceiver extends Thread {
             break;
           case "sendCoins":
             wallet.addBalance(packet.getAmount());
-            out.println("You just received: " + packet.getAmount() +" your new Balance is: "+ wallet.getBalance().getAmount());
+            out.println("You just received: " + packet.getAmount() + " your new Balance is: " + wallet.getBalance().getAmount());
           default:
             ctd = false;
         }

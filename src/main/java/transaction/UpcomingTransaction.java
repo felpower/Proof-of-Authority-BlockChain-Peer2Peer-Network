@@ -13,13 +13,10 @@ import peer.Peer;
 
 public class UpcomingTransaction implements Serializable {
 
-  private Peer sender;
-  private String receiver;
-  private double amount;
+  private final Peer sender;
+  private final String receiver;
+  private final double amount;
   private SignaturePublicKey signaturePublicKey;
-
-  public UpcomingTransaction() {
-  }
 
   public UpcomingTransaction(Peer sender, String receiver, double amount) {
     this.sender = sender;

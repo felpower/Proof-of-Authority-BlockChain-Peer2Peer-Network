@@ -23,7 +23,7 @@ import transaction.Transaction;
 import transaction.UpcomingTransaction;
 
 /*
-Used this Docu here for Receiver and Sender to create Multicast Sockets for Peer2Peer Connection
+Used this Documentation here for Receiver and Sender to create Multicast Sockets for Peer2Peer Connection
 https://docs.oracle.com/javase/7/docs/api/java/net/MulticastSocket.html
  */
 public class Sender {
@@ -56,7 +56,7 @@ public class Sender {
       Set<Transaction> transactions,
       Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions,
       Peer peer) {
-    sendSinglePacket(new Packet("resync", peer, blockchain, transactions, upcomingTransactions), peer.getPort());
+    sendSinglePacket(new Packet("rsync", peer, blockchain, transactions, upcomingTransactions), peer.getPort());
   }
 
   public static void chooseMiner(Peer peer, FelCoinSystem network) {

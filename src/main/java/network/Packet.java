@@ -11,10 +11,10 @@ import transaction.UpcomingTransaction;
 
 public class Packet {
 
+  private final String action;
+  private final Peer peer;
   private Block block;
   private Blockchain blockchain;
-  private String action;
-  private Peer peer;
   private int port;
   private double amount;
   private UpcomingTransaction upcomingTransaction;
@@ -22,9 +22,6 @@ public class Packet {
   private Transaction transaction;
   private Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions;
   private Set<Transaction> transactions;
-
-  public Packet() {
-  }
 
   public Packet(String action, Peer peer) {
     this.action = action;
@@ -36,7 +33,7 @@ public class Packet {
       Peer peer,
       Blockchain blockchain,
       Set<Transaction> transactions,
-      Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions ) {
+      Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions) {
     this.action = action;
     this.peer = peer;
     this.blockchain = blockchain;

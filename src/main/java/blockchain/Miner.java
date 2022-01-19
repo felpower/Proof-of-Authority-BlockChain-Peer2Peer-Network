@@ -14,7 +14,7 @@ public class Miner {
 
   public static Block mineNewBlock(Wallet wallet, FelCoinSystem network) {
     Block lastBlockInChain = network.getBlockchain().getLastBlockInChain();
-    List<String> listOfTransactionHashes = network.getTransactions().stream()
+    List<String> listOfTransactionHashes = network.getTransactionSet().stream()
         .map(transaction -> applySha256(transaction.toString()))
         .collect(toList());
     MerkleTree merkleTree = new MerkleTree(listOfTransactionHashes);
@@ -24,7 +24,7 @@ public class Miner {
         new Date().getTime(),
         lastBlockInChain.getNonce() + 1,
         merkleTree.getRoot());
-    Block block = new Block(header, network.getTransactions(), new SignaturePublicKey(wallet.signBlock(header), wallet.getKeyPair().getPublic()));
+    Block block = new Block(header, network.getTransactionSet(), new SignaturePublicKey(wallet.signBlock(header), wallet.getKeyPair().getPublic()));
 
     network.addBlock(block);
     return block;

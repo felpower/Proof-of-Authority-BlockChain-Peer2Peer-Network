@@ -12,15 +12,11 @@ import java.util.Set;
 
 public class Peer implements Serializable {
 
-  private int port;
-  private String username;
-  private String address;
-  public long lastHearbeat;
+  private final int port;
+  private final String username;
+  private final String address;
   private final Set<Role> roleList = new HashSet<>();
-
-  public Peer() {
-    // deserializer for Jackson
-  }
+  private long lastHearbeat;
 
   public Peer(int port, String username, KeyPair keyPair, Role role) {
     this.port = port;
@@ -42,16 +38,8 @@ public class Peer implements Serializable {
     return address;
   }
 
-  public Set<Role> getRoles() {
-    return roleList;
-  }
-
   public boolean hasRole(Role role) {
     return roleList.contains(role);
-  }
-
-  public String getUrl() {
-    return "rmi://127.0.0.1:" + port + "/felcoinnetwork";
   }
 
   @Override

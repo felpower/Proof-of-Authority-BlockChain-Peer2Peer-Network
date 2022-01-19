@@ -1,12 +1,7 @@
 package helper;
 
-import static java.security.Signature.getInstance;
-import static org.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME;
-
 import java.io.Serializable;
-import java.security.KeyPair;
 import java.security.PublicKey;
-import java.security.Signature;
 import java.util.Arrays;
 
 public class SignaturePublicKey implements Serializable {
@@ -29,7 +24,6 @@ public class SignaturePublicKey implements Serializable {
   public byte[] getPublicKeyEncoded() {
     return publicKeyEncoded;
   }
-
 
 //  public static boolean signTransaction(UpcomingTransaction upcomingTransaction, KeyPair keyPair) {
 //    try {

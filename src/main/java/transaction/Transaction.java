@@ -6,16 +6,12 @@ import java.util.Objects;
 
 public class Transaction implements Serializable {
 
-  private UpcomingTransaction upcomingTransaction;
-  private SignaturePublicKey signaturePublicKey;
+  private final UpcomingTransaction upcomingTransaction;
+  private final SignaturePublicKey signaturePublicKey;
 
   public Transaction(UpcomingTransaction upcomingTransaction, SignaturePublicKey signaturePublicKey) {
     this.upcomingTransaction = upcomingTransaction;
     this.signaturePublicKey = signaturePublicKey;
-  }
-
-  public int getPortFromCreater(){
-    return upcomingTransaction.getSender().getPort();
   }
 
   public UpcomingTransaction getUpcomingTransaction() {

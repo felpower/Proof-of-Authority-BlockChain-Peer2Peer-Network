@@ -27,17 +27,14 @@ import network.Sender;
 import network.SingleReceiver;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import peer.Peer;
-import peer.Role;
 import transaction.Transaction;
 import transaction.UpcomingTransaction;
 
 public class Main {
-  //ToDo: Consensus of who is the Next miner, Merkle Root, Do not produce empty blocks(Only Allow when there are transactions in the System),
-  //What happens when a Peer disconnects, without sending a disconnect(Probably use sockets)
 
+  public static Wallet wallet;
   private static FelCoinSystem network;
   private static Peer peer;
-  public static Wallet wallet;
 
   public static void main(String[] args) {
     addProvider(new BouncyCastleProvider());
@@ -53,11 +50,10 @@ public class Main {
 
   private static void generateUserAndNetwork() {
     //ToDo: Add Inputs for Port, for Username and for Role
-    int port = (int) (Math.random() * (10)) + 5000;
+    int port = (int) (Math.random() * (100)) + 5000;
     String username = "User " + (int) (Math.random() * (10));
-    Role role = VALIDATOR;
     KeyPair keyPair = new Certification().generateKeyPair();
-    peer = new Peer(port, username, keyPair, role);
+    peer = new Peer(port, username, keyPair, VALIDATOR);
     out.println("Created Peer: " + peer);
     wallet = new Wallet(keyPair);
 
@@ -87,44 +83,14 @@ public class Main {
     String input = "0";
     while (true) {
       switch (input) {
-        case "0" -> {
-          printInterface();
-          break;
-        }
-        case "1" -> {
-          showActivePeers();
-          break;
-        }
-        case "2" -> {
-          createNewTransaction();
-          break;
-        }
-        case "3" -> {
-          showCurrentBalanceOfWallet();
-          break;
-        }
-        case "4" -> {
-          printCurrentBlockChain();
-          break;
-        }
-        case "5" -> {
-          mineNewBlock();
-          break;
-        }
-        case "6" -> {
-          showActiveTransactions();
-          break;
-        }
-        case "x" -> {
-          out.println("Thanks for using FelCoin Peer Network");
-          if (network.getPeers().size() > 1 && peer.hasRole(MINER)) {
-            out.println("Miner is going offline");
-            network.removePeer(peer);
-            network.chooseMiner(peer);
-          }
-          Sender.disconnectPeer(peer);
-          exit(1);
-        }
+        case "0" -> printInterface();
+        case "1" -> showActivePeers();
+        case "2" -> createNewTransaction();
+        case "3" -> showCurrentBalanceOfWallet();
+        case "4" -> printCurrentBlockChain();
+        case "5" -> mineNewBlock();
+        case "6" -> showActiveTransactions();
+        case "x" -> removePeer();
       }
       out.print("input = ");
       input = reader.readLine();
@@ -179,7 +145,7 @@ public class Main {
     }
     Block block = Miner.mineNewBlock(wallet, network);
     Sender.sendBlock(block, peer);
-    network.getTransactions().clear();
+    network.getTransactionSet().clear();
   }
 
   private static void showCurrentBalanceOfWallet() {
@@ -201,6 +167,17 @@ public class Main {
       }
       out.println(peer);
     }
+  }
+
+  private static void removePeer() {
+    out.println("Thanks for using FelCoin Peer Network");
+    if (network.getPeers().size() > 1 && peer.hasRole(MINER)) {
+      out.println("Miner is going offline");
+      network.removePeer(peer);
+      network.chooseMiner(peer);
+    }
+    Sender.disconnectPeer(peer);
+    exit(1);
   }
 
   private static void printInterface() {
