@@ -10,11 +10,14 @@ import blockchain.Block;
 import blockchain.Blockchain;
 import com.google.gson.Gson;
 import helper.IPHelper;
+import helper.SignaturePublicKey;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Map;
+import java.util.Set;
 import peer.Peer;
 import transaction.Transaction;
 import transaction.UpcomingTransaction;
@@ -48,8 +51,12 @@ public class Sender {
     }
   }
 
-  public static void sendCurrentBlockchain(Blockchain blockchain, Peer peer) {
-    sendSinglePacket(new Packet("resync", peer, blockchain), peer.getPort());
+  public static void sendCurrentBlockchain(
+      Blockchain blockchain,
+      Set<Transaction> transactions,
+      Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions,
+      Peer peer) {
+    sendSinglePacket(new Packet("resync", peer, blockchain, transactions, upcomingTransactions), peer.getPort());
   }
 
   public static void chooseMiner(Peer peer, FelCoinSystem network) {
@@ -64,8 +71,13 @@ public class Sender {
     sendMultiPacket(new Packet("upTrans", peer, upcomingTransaction));
   }
 
-  public static void validateTransaction(Peer peer, Transaction transaction) {
-    sendSinglePacket(new Packet("valTrans", peer, transaction), transaction.getPortFromCreater());
+  public static void validatedUpcomingTransaction(Peer peer, Peer sender, UpcomingTransaction upcomingTransaction,
+      SignaturePublicKey signaturePublicKey) {
+    sendSinglePacket(new Packet("valUpTrans", peer, upcomingTransaction, signaturePublicKey), sender.getPort());
+  }
+
+  public static void sendFinalizedTransaction(Peer peer, Transaction transaction) {
+    sendMultiPacket(new Packet("finalTrans", peer, transaction));
   }
 
   public static void disconnectPeer(Peer peer) {
@@ -103,9 +115,7 @@ public class Sender {
     sendSinglePacket(new Packet("sendCoins", peer, upcomingTransaction.getAmount()), receiver.getPort());
   }
 
-  public static void removeTransaction(Peer peer, Transaction transaction) {
-    sendMultiPacket(new Packet("remTrans", peer, transaction));
+  public static void removeUpcomingTransaction(Peer peer, UpcomingTransaction upcomingTransaction) {
+    sendMultiPacket(new Packet("remTrans", peer, upcomingTransaction));
   }
-
-
 }

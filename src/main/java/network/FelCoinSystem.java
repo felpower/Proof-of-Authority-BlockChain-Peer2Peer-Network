@@ -7,7 +7,6 @@ import blockchain.Block;
 import blockchain.Blockchain;
 import helper.SignaturePublicKey;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,8 +23,8 @@ public class FelCoinSystem {
 
   private final Set<Peer> peers = new HashSet<>();
   private Blockchain blockchain;
-  private final Set<Transaction> transactionList = new HashSet<>();
-  private final Map<UpcomingTransaction, List<SignaturePublicKey>> upcomingTransactions = new HashMap<>();
+  private Set<Transaction> transactions = new HashSet<>();
+  private Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions = new HashMap<>();
 
   public FelCoinSystem(Peer peer) {
     peers.add(peer);
@@ -48,8 +47,8 @@ public class FelCoinSystem {
     return blockchain;
   }
 
-  public void addBlock(Block block) {
-    blockchain.addBlock(block);
+  public boolean addBlock(Block block) {
+   return blockchain.addBlock(block);
   }
 
   public void setBlockchain(Blockchain blockchain) {
@@ -75,11 +74,7 @@ public class FelCoinSystem {
   }
 
   public void addTransaction(Transaction transaction) {
-    transactionList.add(transaction);
-  }
-
-  public Map<UpcomingTransaction, List<SignaturePublicKey>> getUpcomingTransactions() {
-    return upcomingTransactions;
+    transactions.add(transaction);
   }
 
   public int getAmountOfSignedUpcomingTransactions(UpcomingTransaction upcomingTransaction) {
@@ -87,28 +82,24 @@ public class FelCoinSystem {
   }
 
   public void addUpcomingTransaction(UpcomingTransaction upcomingTransaction) {
-    upcomingTransactions.put(upcomingTransaction, new ArrayList<>());
+    upcomingTransactions.put(upcomingTransaction, new HashSet<>());
   }
 
   public void removeUpcomingTransaction(UpcomingTransaction upcomingTransaction) {
     upcomingTransactions.remove(upcomingTransaction);
   }
 
-  public void removeTransaction(Transaction transaction) {
-    transactionList.remove(transaction);
-  }
-
   public void printTransactions() {
-    if (transactionList.isEmpty()) {
+    if (transactions.isEmpty()) {
       System.out.println("No Transactions in System");
     }
-    for (Transaction transaction : transactionList) {
+    for (Transaction transaction : transactions) {
       System.out.println(transaction.toString());
     }
   }
 
   public boolean hasTransactions() {
-    return !transactionList.isEmpty();
+    return !transactions.isEmpty();
   }
 
   public void checkHeartbeat(Peer localPeer) {
@@ -133,6 +124,22 @@ public class FelCoinSystem {
   }
 
   public Set<Transaction> getTransactions() {
-    return transactionList;
+    return transactions;
+  }
+
+  public void addSignatureToUpcomingTransaction(UpcomingTransaction upcomingTransaction, SignaturePublicKey signaturePublicKey) {
+    upcomingTransactions.get(upcomingTransaction).add(signaturePublicKey);
+  }
+
+  public Map<UpcomingTransaction, Set<SignaturePublicKey>> getUpcomingTransactions() {
+    return upcomingTransactions;
+  }
+
+  public void setTransactions(Set<Transaction> transactions) {
+    this.transactions = transactions;
+  }
+
+  public void setUpcomingTransactions(Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions) {
+    this.upcomingTransactions = upcomingTransactions;
   }
 }

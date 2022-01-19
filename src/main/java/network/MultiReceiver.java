@@ -4,14 +4,16 @@ import static helper.IPHelper.getGroup;
 import static helper.IPHelper.getPort;
 import static network.Sender.acknowledgeHello;
 
+import application.Wallet;
 import com.google.gson.Gson;
+import helper.SignaturePublicKey;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.util.Optional;
 import peer.Peer;
-import transaction.Transaction;
+import transaction.UpcomingTransaction;
 
 /*
 Used this Docu here for Receiver and Sender to create Multicast Sockets for Peer2Peer Connection
@@ -21,12 +23,14 @@ public class MultiReceiver extends Thread {
 
   private final Peer peer;
   private final FelCoinSystem network;
+  private final Wallet wallet;
   private MulticastSocket socket;
   private InetAddress group;
 
-  public MultiReceiver(Peer peer, FelCoinSystem network) {
+  public MultiReceiver(Peer peer, FelCoinSystem network, Wallet wallet) {
     this.peer = peer;
     this.network = network;
+    this.wallet = wallet;
   }
 
   @Override
@@ -61,7 +65,9 @@ public class MultiReceiver extends Thread {
           case "block":
             if (!network.getBlockchain().getBlocks().contains(packet.getBlock())) {
               System.out.println("Received new Block: " + packet.getBlock());
-              network.addBlock(packet.getBlock());
+              if(network.addBlock(packet.getBlock())){
+                network.getTransactions().clear();
+              }
             }
             break;
           case "miner":
@@ -73,12 +79,20 @@ public class MultiReceiver extends Thread {
             network.removePeer(packet.getPeer());
             break;
           case "upTrans":
-            Transaction transaction = new Transaction(packet.getUpcomingTransaction(), packet.getUpcomingTransaction().getSignaturePublicKey());
-            network.addTransaction(transaction);
-            Sender.validateTransaction(this.peer, transaction);
+            System.out.println("Received UpTrans");
+            UpcomingTransaction upcomingTransaction = packet.getUpcomingTransaction();
+            //Check if UpcomingTransaction is valid
+            if (!this.peer.equals(packet.getPeer())) {
+              network.addUpcomingTransaction(upcomingTransaction);
+            }
+            SignaturePublicKey signaturePublicKey = new SignaturePublicKey(wallet.signTransaction(upcomingTransaction),
+                wallet.getKeyPair().getPublic());
+            Sender.validatedUpcomingTransaction(this.peer, packet.getPeer(), upcomingTransaction, signaturePublicKey);
             break;
+          case "finalTrans":
+            network.addTransaction(packet.getTransaction());
           case "remTrans":
-            network.removeTransaction(packet.getTransaction());
+            network.removeUpcomingTransaction(packet.getUpcomingTransaction());
             break;
           default:
             ctd = false;

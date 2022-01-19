@@ -24,7 +24,7 @@ public class Miner {
         new Date().getTime(),
         lastBlockInChain.getNonce() + 1,
         merkleTree.getRoot());
-    Block block = new Block(header, network.getTransactions(), new SignaturePublicKey(wallet.signKey(header), wallet.getKeyPair().getPublic()));
+    Block block = new Block(header, network.getTransactions(), new SignaturePublicKey(wallet.signBlock(header), wallet.getKeyPair().getPublic()));
 
     network.addBlock(block);
     return block;

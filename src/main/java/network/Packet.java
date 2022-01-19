@@ -2,6 +2,9 @@ package network;
 
 import blockchain.Block;
 import blockchain.Blockchain;
+import helper.SignaturePublicKey;
+import java.util.Map;
+import java.util.Set;
 import peer.Peer;
 import transaction.Transaction;
 import transaction.UpcomingTransaction;
@@ -15,7 +18,10 @@ public class Packet {
   private int port;
   private double amount;
   private UpcomingTransaction upcomingTransaction;
+  private SignaturePublicKey signaturePublicKey;
   private Transaction transaction;
+  private Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions;
+  private Set<Transaction> transactions;
 
   public Packet() {
   }
@@ -25,10 +31,17 @@ public class Packet {
     this.peer = peer;
   }
 
-  public Packet(String action, Peer peer, Blockchain blockchain) {
+  public Packet(
+      String action,
+      Peer peer,
+      Blockchain blockchain,
+      Set<Transaction> transactions,
+      Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions ) {
     this.action = action;
     this.peer = peer;
     this.blockchain = blockchain;
+    this.transactions = transactions;
+    this.upcomingTransactions = upcomingTransactions;
   }
 
   public Packet(String action, Peer peer, Block block) {
@@ -47,6 +60,13 @@ public class Packet {
     this.action = action;
     this.peer = peer;
     this.upcomingTransaction = upcomingTransaction;
+  }
+
+  public Packet(String action, Peer peer, UpcomingTransaction upcomingTransaction, SignaturePublicKey signaturePublicKey) {
+    this.action = action;
+    this.peer = peer;
+    this.upcomingTransaction = upcomingTransaction;
+    this.signaturePublicKey = signaturePublicKey;
   }
 
   public Packet(String action, Peer peer, Transaction transaction) {
@@ -85,8 +105,20 @@ public class Packet {
     return upcomingTransaction;
   }
 
+  public SignaturePublicKey getSignaturePublicKey() {
+    return signaturePublicKey;
+  }
+
   public Transaction getTransaction() {
     return transaction;
+  }
+
+  public Map<UpcomingTransaction, Set<SignaturePublicKey>> getUpcomingTransactions() {
+    return upcomingTransactions;
+  }
+
+  public Set<Transaction> getTransactions() {
+    return transactions;
   }
 
   public double getAmount() {

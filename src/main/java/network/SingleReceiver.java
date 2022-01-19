@@ -1,5 +1,7 @@
 package network;
 
+import static java.lang.System.out;
+
 import application.Wallet;
 import blockchain.Blockchain;
 import com.google.gson.Gson;
@@ -39,17 +41,22 @@ public class SingleReceiver extends Thread {
         Packet packet = new Gson().fromJson(received, Packet.class);
         switch (packet.getAction()) {
           case "sync":
-            Blockchain blockchain = network.getBlockchain();
-            Sender.sendCurrentBlockchain(blockchain, packet.getPeer());
+            Sender.sendCurrentBlockchain(network.getBlockchain(),network.getTransactions(),network.getUpcomingTransactions(), packet.getPeer());
             break;
           case "resync":
             network.setBlockchain(packet.getBlockchain());
+            network.setTransactions(packet.getTransactions());
+            network.setUpcomingTransactions(packet.getUpcomingTransactions());
+            break;
+          case "valUpTrans":
+            network.addSignatureToUpcomingTransaction(packet.getUpcomingTransaction(), packet.getSignaturePublicKey());
             break;
           case "valTrans":
             network.addTransaction(packet.getTransaction());
             break;
           case "sendCoins":
             wallet.addBalance(packet.getAmount());
+            out.println("You just received: " + packet.getAmount() +" your new Balance is: "+ wallet.getBalance().getAmount());
           default:
             ctd = false;
         }
@@ -60,5 +67,4 @@ public class SingleReceiver extends Thread {
       socket.close();
     }
   }
-
 }

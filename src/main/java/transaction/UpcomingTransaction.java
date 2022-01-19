@@ -72,7 +72,7 @@ public class UpcomingTransaction implements Serializable {
     }
     UpcomingTransaction that = (UpcomingTransaction) o;
     return Double.compare(that.getAmount(), getAmount()) == 0 && getSender().equals(that.getSender()) && getReceiver().equals(
-        that.getReceiver()) && getSignaturePublicKey().equals(that.getSignaturePublicKey());
+        that.getReceiver());
   }
 
   @Override

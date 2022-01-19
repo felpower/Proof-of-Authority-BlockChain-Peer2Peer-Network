@@ -43,6 +43,26 @@ public class SignaturePublicKey implements Serializable {
 //    return false;
 //  }
 
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SignaturePublicKey that = (SignaturePublicKey) o;
+    return Arrays.equals(getSignature(), that.getSignature()) && Arrays.equals(getPublicKeyEncoded(), that.getPublicKeyEncoded());
+  }
+
+  @Override
+  public int hashCode() {
+    int result = Arrays.hashCode(getSignature());
+    result = 31 * result + Arrays.hashCode(getPublicKeyEncoded());
+    return result;
+  }
+
   @Override
   public String toString() {
     return "SignaturePublicKey{" +

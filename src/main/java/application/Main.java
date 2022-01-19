@@ -5,7 +5,6 @@ import static java.lang.System.exit;
 import static java.lang.System.in;
 import static java.lang.System.out;
 import static java.security.Security.addProvider;
-import static network.Sender.removeTransaction;
 import static network.Sender.sendHello;
 import static network.Sender.synchronizeBlockchain;
 import static peer.Role.MINER;
@@ -45,7 +44,7 @@ public class Main {
 
     try {
       generateUserAndNetwork();
-      startSenderReceiverThreads();
+      startSenderReceiverThreadsAndSynchronizeIntoNetwork();
       start();
     } catch (IOException | InterruptedException e) {
       e.printStackTrace();
@@ -56,7 +55,7 @@ public class Main {
     //ToDo: Add Inputs for Port, for Username and for Role
     int port = (int) (Math.random() * (10)) + 5000;
     String username = "User " + (int) (Math.random() * (10));
-    Role role = VALIDATOR;//Add Miner Role
+    Role role = VALIDATOR;
     KeyPair keyPair = new Certification().generateKeyPair();
     peer = new Peer(port, username, keyPair, role);
     out.println("Created Peer: " + peer);
@@ -65,9 +64,8 @@ public class Main {
     network = new FelCoinSystem(peer);
   }
 
-  private static void startSenderReceiverThreads() throws InterruptedException {
-
-    MultiReceiver multiReceiver = new MultiReceiver(peer, network);
+  private static void startSenderReceiverThreadsAndSynchronizeIntoNetwork() throws InterruptedException {
+    MultiReceiver multiReceiver = new MultiReceiver(peer, network, wallet);
     multiReceiver.start();
 
     SingleReceiver singleReceiver = new SingleReceiver(peer, network, wallet);
@@ -113,11 +111,7 @@ public class Main {
           mineNewBlock();
           break;
         }
-//        case "6" -> {
-//          showTotalValueOfCoinsInSystem();
-//          break;
-//        }
-        case "7" -> {
+        case "6" -> {
           showActiveTransactions();
           break;
         }
@@ -141,11 +135,6 @@ public class Main {
     network.printTransactions();
   }
 
-  //
-//  private static void showTotalValueOfCoinsInSystem() {
-//    out.println("The total amount of Coins in Rotation is " + network.getSystemBalance().values().stream().mapToInt(Double::intValue).sum());
-//  }
-//
   private static void printCurrentBlockChain() {
     network.getBlockchain().print();
   }
@@ -160,16 +149,20 @@ public class Main {
       network.addUpcomingTransaction(upcomingTransaction);
 
       Sender.proposeUpcomingTransactionToValidators(upcomingTransaction, peer);
-      Thread.sleep(1000);//Wait for Validators
+      Thread.sleep(2000);//Wait for Validators
       if (network.getAmountOfSignedUpcomingTransactions(upcomingTransaction) >= network.findActiveValidatorsInNetwork() / 2) {
         network.removeUpcomingTransaction(upcomingTransaction);
         Sender.sendCoins(upcomingTransaction, peer, network);
-        wallet.removeBalance(upcomingTransaction.getAmount());
-      } else {
         Transaction transaction = new Transaction(upcomingTransaction, signaturePublicKey);
-        network.removeTransaction(transaction);
-        removeTransaction(peer, transaction);
+        network.addTransaction(transaction);
+        Sender.sendFinalizedTransaction(peer, transaction);
+        wallet.removeBalance(upcomingTransaction.getAmount());
+        out.println("New Balance in Wallet is: " + wallet.getBalance().getAmount());
+      } else {
+        Sender.removeUpcomingTransaction(peer, upcomingTransaction);
+        out.println("Transaction failed");
       }
+      network.removeUpcomingTransaction(upcomingTransaction);
     } catch (IOException | InterruptedException e) {
       e.printStackTrace();
     }
@@ -218,8 +211,7 @@ public class Main {
     out.println("Enter 3 to show the Current Balance inside your Wallet");
     out.println("Enter 4 to show Current Block Chain");
     out.println("Enter 5 Mine New Block");
-    out.println("Enter 6 to show Total Value Of Coins In the System");
-    out.println("Enter 7 Show active Transactions in System");
+    out.println("Enter 6 Show active Transactions in System");
     out.println("Enter x to disconnect from Peer Network");
     out.println("---------------------------------------");
   }

@@ -26,13 +26,16 @@ public class Wallet implements Serializable {
     this.balance = new Balance(100);
   }
 
-  public byte[] signKey(Header header) {
+  public byte[] signBlock(Header header) {
+    return sign(header.toString());
+  }
+
+  private byte[] sign(String data) {
     try {
       Signature signature = getInstance("ECDSA", PROVIDER_NAME);
       signature.initSign(keyPair.getPrivate());
-      signature.update(header.toString().getBytes());
+      signature.update(data.getBytes());
       return signature.sign();
-
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -40,16 +43,7 @@ public class Wallet implements Serializable {
   }
 
   public byte[] signTransaction(UpcomingTransaction upcomingTransaction) {
-    try {
-      Signature signature = getInstance("ECDSA", PROVIDER_NAME);
-      signature.initSign(keyPair.getPrivate());
-      signature.update(upcomingTransaction.toString().getBytes());
-      return signature.sign();
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return null;
+    return sign(upcomingTransaction.toString());
   }
 
   public KeyPair getKeyPair() {
