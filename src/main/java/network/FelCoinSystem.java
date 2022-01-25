@@ -14,11 +14,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import peer.Peer;
+import peer.Role;
 import transaction.Transaction;
 import transaction.UpcomingTransaction;
 
@@ -60,7 +62,7 @@ public class FelCoinSystem {
 
   public void chooseMiner(Peer peer) {
     if (peers.stream().noneMatch(p -> p.hasRole(MINER))) {
-      Sender.chooseMiner(peer, this);
+      Sender.chooseMiner(peer, null, this);
     }
   }
 
@@ -68,8 +70,8 @@ public class FelCoinSystem {
     return peers.stream().filter(peer -> peer.hasAddress(receiver)).findFirst().orElse(null);
   }
 
-  public long findActiveValidatorsInNetwork() {
-    return getPeers().stream().filter(peer -> peer.hasRole(VALIDATOR)).count();
+  public Peer findPeerByPort(int port) {
+    return peers.stream().filter(peer -> peer.hasPort(port)).findFirst().orElse(null);
   }
 
   public long findActiveValidatorsExcludingSelfInNetwork(Peer self) {
@@ -77,7 +79,11 @@ public class FelCoinSystem {
   }
 
   public Peer addRoleMinerToPeerWithPort(int port) {
-    return peers.stream().filter(p -> p.hasPort(port)).findFirst().map(peer -> peer.addRole(MINER)).orElse(null);
+    return peers.stream()
+        .filter(not(peer -> peer.hasRole(MINER)))
+        .filter(p -> p.hasPort(port))
+        .findFirst().map(peer -> peer.addRole(MINER))
+        .orElse(null);
   }
 
   public void addTransaction(Transaction transaction) {
@@ -115,12 +121,9 @@ public class FelCoinSystem {
         .filter(Objects::nonNull)
         .filter(peer -> !peer.equals(localPeer))
         .collect(Collectors.toList());
-
+    chooseNewMinerIfMultipleAreFound(localPeer, 0);
     if (deadPeers.size() >= 1) {
-      Optional<Peer> miner = deadPeers.stream().filter(peer -> peer.hasRole(MINER)).findFirst();
-      if (miner.isPresent()) {
-        Sender.chooseMiner(localPeer, this);
-      }
+      deadPeers.stream().filter(peer -> peer.hasRole(MINER)).findFirst().ifPresent(oldMiner -> Sender.chooseMiner(localPeer, oldMiner, this));
       deadPeers.forEach(peers::remove);
       System.out.println("Removed the following Peers, because no Heartbeat was sent in the last 10 seconds" + deadPeers);
     }
@@ -153,12 +156,35 @@ public class FelCoinSystem {
   }
 
   public boolean checkForValidators(UpcomingTransaction upcomingTransaction, Peer peer) {
-    long validatorsInNetwork = findActiveValidatorsInNetwork();
-    System.out.println("Validators in network total: " + validatorsInNetwork);
-    validatorsInNetwork = findActiveValidatorsExcludingSelfInNetwork(peer);
-    System.out.println("Validators in network excluding self: " + validatorsInNetwork);
-    int amountOfSignedUpcomingTransactions = getAmountOfSignedUpcomingTransactions(upcomingTransaction);
-    System.out.println("signed Transactions: " + amountOfSignedUpcomingTransactions);
-    return amountOfSignedUpcomingTransactions >= validatorsInNetwork * 0.5;
+    return getAmountOfSignedUpcomingTransactions(upcomingTransaction) >= findActiveValidatorsExcludingSelfInNetwork(peer) * 0.5;
+  }
+
+  public boolean checkIfAddressExistsInSystem(String receiver) {
+    return peers.stream().anyMatch(peer -> peer.hasAddress(receiver));
+  }
+
+  public boolean checkIfOnlyOneMiner() {
+    return peers.stream().filter(peer -> peer.hasRole(MINER)).count() == 1;
+  }
+
+  public boolean chooseNewMinerIfMultipleAreFound(Peer currentPeer, int peer) {
+    if (!checkIfOnlyOneMiner()) {
+      peers.forEach(peer1 -> peer1.removeRole(Role.MINER));
+      Peer peerWithLowestPort = findPeerByPort(
+          peers.stream()
+              .map(Peer::getPort)
+              .mapToInt(v -> v)
+              .min()
+              .orElseThrow(NoSuchElementException::new));
+      peerWithLowestPort.addRole(MINER);
+      if (peer != peerWithLowestPort.getPort()) {
+        Sender.chooseMiner(peerWithLowestPort);
+      }
+      if (peerWithLowestPort.equals(currentPeer)) {
+        System.out.println("You are the new Miner");
+      }
+      return true;
+    }
+    return false;
   }
 }

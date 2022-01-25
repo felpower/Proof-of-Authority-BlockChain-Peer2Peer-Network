@@ -2,7 +2,6 @@ package network;
 
 import static helper.IPHelper.getPort;
 import static helper.RandomHelper.getRandomPeer;
-import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static java.util.Objects.nonNull;
 
@@ -16,6 +15,8 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import peer.Peer;
 import transaction.Transaction;
@@ -57,12 +58,19 @@ public class Sender {
     sendSinglePacket(new Packet("rsync", peer, blockchain, transactions), peer.getPort());
   }
 
-  public static void chooseMiner(Peer peer, FelCoinSystem network) {
-    Peer randomPeer = getRandomPeer(network.getPeers(), emptyList());
+  public static void chooseMiner(Peer peer, Peer oldMiner, FelCoinSystem network) {
+    List<Peer> oldMinerList = new ArrayList<>();
+    if (nonNull(oldMiner)) {
+      oldMinerList.add(oldMiner);
+    }
+    Peer randomPeer = getRandomPeer(network.getPeers(), oldMinerList);
     if (nonNull(randomPeer)) {
-      System.out.println("New Miner is going to be: " + randomPeer);
       sendMultiPacket(new Packet("miner", peer, randomPeer.getPort()));
     }
+  }
+
+  public static void chooseMiner(Peer newMiner) {
+    sendMultiPacket(new Packet("miner", newMiner, newMiner.getPort()));
   }
 
   public static void proposeUpcomingTransactionToValidators(UpcomingTransaction upcomingTransaction, Peer peer) {

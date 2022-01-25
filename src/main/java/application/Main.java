@@ -5,6 +5,7 @@ import static java.lang.System.exit;
 import static java.lang.System.in;
 import static java.lang.System.out;
 import static java.security.Security.addProvider;
+import static java.util.Objects.isNull;
 import static network.Sender.sendHello;
 import static network.Sender.synchronizeBlockchain;
 import static peer.Role.MINER;
@@ -105,11 +106,13 @@ public class Main {
     network.getBlockchain().print();
   }
 
-
   private static void createNewTransaction() {
     try {
       UpcomingTransaction upcomingTransaction = newUpcomingTransaction(peer, wallet);
-
+      if (isNull(upcomingTransaction) || !network.checkIfAddressExistsInSystem(upcomingTransaction.getReceiver())) {
+        out.println("You have insufficient funds or the address you tried to send your coins to does not exist in the system");
+        return;
+      }
       SignaturePublicKey signaturePublicKey = new SignaturePublicKey(wallet.signTransaction(upcomingTransaction), wallet.getKeyPair().getPublic());
       upcomingTransaction.addSignaturePublicKey(signaturePublicKey);
       network.addUpcomingTransaction(upcomingTransaction);

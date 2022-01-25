@@ -28,15 +28,18 @@ public class UpcomingTransaction implements Serializable {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     System.out.println("Enter the address of Peer where you want to send your Coins to: ");
     String receivingAddress = reader.readLine();
-    System.out.println("Enter the amout of Felcoins you want to send: ");
-
-    int amount = -1;
-    while (amount > wallet.getBalance().getAmount() || amount < 0) {
+    System.out.println("Enter the amount of Coins you want to send: ");
+    int amount;
+    try {
       amount = parseInt(reader.readLine());
+      if (wallet.getBalance().getAmount() < amount) {
+        return null;
+      }
+    } catch (NumberFormatException e) {
+      return null;
     }
     return new UpcomingTransaction(peer, receivingAddress, amount);
   }
-
 
   public void addSignaturePublicKey(SignaturePublicKey signaturePublicKey) {
     this.signaturePublicKey = signaturePublicKey;

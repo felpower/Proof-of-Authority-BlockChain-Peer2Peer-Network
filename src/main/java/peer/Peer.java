@@ -74,6 +74,11 @@ public class Peer implements Serializable {
     return this;
   }
 
+  public Peer removeRole(Role role) {
+    this.roleList.remove(role);
+    return this;
+  }
+
   public boolean hasPort(int port) {
     return this.port == port;
   }

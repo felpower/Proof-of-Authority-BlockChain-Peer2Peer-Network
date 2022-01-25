@@ -3,6 +3,7 @@ package network;
 import static helper.IPHelper.getGroup;
 import static helper.IPHelper.getPort;
 import static helper.SignaturePublicKey.verify;
+import static java.util.Objects.nonNull;
 import static network.Sender.acknowledgeHello;
 
 import application.Wallet;
@@ -72,7 +73,10 @@ public class MultiReceiver extends Thread {
             break;
           case "miner":
             Peer newMiner = network.addRoleMinerToPeerWithPort(packet.getPort());
-            System.out.println("New Miner found: " + newMiner);
+            sleep(100);
+            if (nonNull(newMiner) && network.chooseNewMinerIfMultipleAreFound(this.peer,newMiner.getPort())) {
+              break;
+            }
             break;
           case "DC":
             System.out.println("Peer went offline: " + packet.getPeer());
@@ -100,7 +104,7 @@ public class MultiReceiver extends Thread {
           default:
         }
       }
-    } catch (IOException e) {
+    } catch (IOException | InterruptedException e) {
       e.printStackTrace();
     } finally {
       try {
