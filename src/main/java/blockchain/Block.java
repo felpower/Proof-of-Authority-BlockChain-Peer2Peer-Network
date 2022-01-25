@@ -1,9 +1,9 @@
 package blockchain;
 
-import helper.HashCode;
+import static helper.HashCode.applySha256;
+
 import helper.SignaturePublicKey;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import transaction.Transaction;
@@ -16,9 +16,14 @@ public class Block implements Serializable {
   public String hash;
   //The list of Transactions
   public Set<Transaction> transactions = new HashSet<>();
-
-  // Data to make the Block unique
-  public Header header;
+  //Hash of the previous block, an important part to build the chain
+  public String previousHash;
+  //The timestamp of the creation of this block
+  public long timestamp;
+  //A nonce, which is an arbitrary number used in cryptography
+  public int nonce;
+  // to make sure data blocks passed between peers on a peer-to-peer network are whole, undamaged, and unaltered.
+  public String merkleRoot;
 
   public Block(
       int nonce,
@@ -27,44 +32,41 @@ public class Block implements Serializable {
       long timestamp,
       Set<Transaction> transactions,
       SignaturePublicKey signaturePublicKey) {
-    this.header = new Header(previousHash, timestamp, nonce, merkleRoot);
     this.signaturePublicKey = signaturePublicKey;
     this.transactions.addAll(transactions);
+    this.previousHash = previousHash;
+    this.timestamp = timestamp;
+    this.nonce = nonce;
+    this.merkleRoot = merkleRoot;
     this.hash = calculateHash(nonce, merkleRoot, previousHash, timestamp);
   }
 
-  public Block(
-      Header header,
-      Set<Transaction> transactions,
-      SignaturePublicKey signaturePublicKey) {
-    this.header = new Header(header.previousHash, header.timestamp, header.nonce, header.merkleRoot);
-    this.signaturePublicKey = signaturePublicKey;
-    this.transactions.addAll(transactions);
-    this.hash = calculateHash(header.nonce, header.merkleRoot, header.previousHash, header.timestamp);
-  }
-
   protected static String calculateHash(int nonce, String merkleRoot, String previousHash, long timestamp) {
-    return HashCode.applySha256(nonce + merkleRoot + previousHash + timestamp);
+    return applySha256(nonce + merkleRoot + previousHash + timestamp);
   }
 
   public String getHash() {
     return hash;
   }
 
+  public Set<Transaction> getTransactions() {
+    return transactions;
+  }
+
   public String getPreviousHash() {
-    return header.previousHash;
+    return previousHash;
   }
 
   public long getTimestamp() {
-    return header.timestamp;
+    return timestamp;
   }
 
   public int getNonce() {
-    return header.nonce;
+    return nonce;
   }
 
   public String getMerkleRoot() {
-    return header.merkleRoot;
+    return merkleRoot;
   }
 
   public SignaturePublicKey getSignaturePublicKey() {
@@ -74,39 +76,14 @@ public class Block implements Serializable {
   @Override
   public String toString() {
     return "Block{" +
-        "hash='" + hash + '\'' +
+        "signaturePublicKey=" + signaturePublicKey +
+        ", hash='" + hash + '\'' +
         ", transactions=" + transactions +
-        ", header=" + header +
+        ", previousHash='" + previousHash + '\'' +
+        ", timestamp=" + timestamp +
+        ", nonce=" + nonce +
+        ", merkleRoot='" + merkleRoot + '\'' +
         '}';
-  }
-
-  public static class Header implements Serializable {
-
-    //Hash of the previous block, an important part to build the chain
-    public String previousHash;
-    //The timestamp of the creation of this block
-    public long timestamp;
-    //A nonce, which is an arbitrary number used in cryptography
-    public int nonce;
-    // to make sure data blocks passed between peers on a peer-to-peer network are whole, undamaged, and unaltered.
-    public String merkleRoot;
-
-    public Header(String previousHash, long timestamp, int nonce, String merkleRoot) {
-      this.previousHash = previousHash;
-      this.timestamp = timestamp;
-      this.nonce = nonce;
-      this.merkleRoot = merkleRoot;
-    }
-
-    @Override
-    public String toString() {
-      return "Header{" +
-          "previousHash='" + previousHash + '\'' +
-          ", timestamp=" + new Date(timestamp) +
-          ", nonce=" + nonce +
-          ", merkleRoot='" + merkleRoot + '\'' +
-          '}';
-    }
   }
 
 }

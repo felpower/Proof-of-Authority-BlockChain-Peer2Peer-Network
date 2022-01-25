@@ -10,23 +10,23 @@ https://github.com/goyalnikhil02/MerkleTree/blob/master/src/com/example/MerkleTr
  */
 public class MerkleTree {
 
-  private final List<String> transactionList;
   private String root;
 
-  public MerkleTree(List<String> txList) {
-    this.transactionList = txList;
+  public MerkleTree(List<String> transactionList) {
+    createMerkleTree(transactionList);
   }
 
-  public void createMerkleTree() {
-    List<String> merkledList = getNewTxList(new ArrayList<>(this.transactionList));
+  public MerkleTree createMerkleTree(List<String> transactionList) {
+    List<String> merkledList = getTransactionList(new ArrayList<>(transactionList));
     while (merkledList.size() != 1) {
-      merkledList = getNewTxList(merkledList);
+      merkledList = getTransactionList(merkledList);
     }
 
     this.root = merkledList.get(0);
+    return this;
   }
 
-  private List<String> getNewTxList(List<String> tempTxList) {
+  private List<String> getTransactionList(List<String> tempTxList) {
     List<String> newTxList = new ArrayList<>();
     int index = 0;
     while (index < tempTxList.size()) {

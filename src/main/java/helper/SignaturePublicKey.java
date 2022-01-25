@@ -1,8 +1,15 @@
 package helper;
 
+import static java.security.Signature.getInstance;
+import static org.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME;
+
 import java.io.Serializable;
+import java.security.KeyFactory;
 import java.security.PublicKey;
+import java.security.Signature;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
+import transaction.UpcomingTransaction;
 
 public class SignaturePublicKey implements Serializable {
 
@@ -17,6 +24,20 @@ public class SignaturePublicKey implements Serializable {
     this.publicKeyEncoded = publicKey.getEncoded();
   }
 
+  public static boolean verify(UpcomingTransaction upcomingTransaction) {
+    try {
+      Signature signature = getInstance("ECDSA", PROVIDER_NAME);
+      PublicKey publicKey = KeyFactory.getInstance("ECDSA", PROVIDER_NAME)
+          .generatePublic(new X509EncodedKeySpec(upcomingTransaction.getPublicKeyEncoded()));
+      signature.initVerify(publicKey);
+      signature.update(upcomingTransaction.toString().getBytes());
+      return signature.verify(upcomingTransaction.getSignaturePublicKey().signature);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
   public byte[] getSignature() {
     return signature;
   }
@@ -24,19 +45,6 @@ public class SignaturePublicKey implements Serializable {
   public byte[] getPublicKeyEncoded() {
     return publicKeyEncoded;
   }
-
-//  public static boolean signTransaction(UpcomingTransaction upcomingTransaction, KeyPair keyPair) {
-//    try {
-//      Signature signature = getInstance("ECDSA", PROVIDER_NAME);
-//      signature.initSign(keyPair.getPrivate());
-//      signature.update(upcomingTransaction.toString().getBytes());
-//      return signature.verify(upcomingTransaction.getSignaturePublicKey().signature);
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//    return false;
-//  }
-
 
   @Override
   public boolean equals(Object o) {

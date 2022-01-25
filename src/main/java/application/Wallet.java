@@ -5,7 +5,6 @@ import static java.security.Signature.getInstance;
 import static org.bouncycastle.jce.provider.BouncyCastleProvider.PROVIDER_NAME;
 
 import blockchain.Balance;
-import blockchain.Block.Header;
 import java.io.Serializable;
 import java.security.KeyPair;
 import java.security.Signature;
@@ -26,8 +25,8 @@ public class Wallet implements Serializable {
     this.balance = new Balance(100);
   }
 
-  public byte[] signBlock(Header header) {
-    return sign(header.toString());
+  public byte[] signBlock(String singBlock) {
+    return sign(singBlock);
   }
 
   private byte[] sign(String data) {

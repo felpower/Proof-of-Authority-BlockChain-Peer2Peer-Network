@@ -18,9 +18,10 @@ public class Blockchain implements Serializable {
     blockchain.add(genesis);
   }
 
-  public boolean addBlock(Block b) {
-    if (verifyBlock(b)) {
-      blockchain.add(b);
+  public boolean addBlock(Block block) {
+    if (verifyBlock(block)) {
+      System.out.println("Added Block: " + block);
+      blockchain.add(block);
       return true;
     }
     System.out.println("Could not verify Block");
@@ -31,16 +32,26 @@ public class Blockchain implements Serializable {
     return blockchain;
   }
 
-  protected boolean verifyBlock(Block newBlock) {
-    String hashCode = calculateHash(newBlock.getNonce(),
-        newBlock.getMerkleRoot(),
-        newBlock.getPreviousHash(),
-        newBlock.getTimestamp());
-
-    return
-        newBlock.getNonce() == getLastBlockInChain().getNonce() + 1
-            && newBlock.getPreviousHash().equals(getLastBlockInChain().getHash())
-            && newBlock.getHash().equals(hashCode);
+  protected boolean verifyBlock(Block block) {
+    String hashCode = calculateHash(
+        block.getNonce(),
+        block.getMerkleRoot(),
+        block.getPreviousHash(),
+        block.getTimestamp());
+    if (block.getNonce() != getLastBlockInChain().getNonce() + 1) {
+      System.out.println("The new BLock is not the next in line");
+      System.out.println("Last Block in chain: " + getLastBlockInChain().toString());
+      return false;
+    } else if (!block.getPreviousHash().equals(getLastBlockInChain().getHash())) {
+      System.out.println("The new Block has the wrong previous hash");
+      System.out.println("Block.previousHash: " + block.getPreviousHash() + " last blocks hash: " + getLastBlockInChain().getHash());
+      return false;
+    } else if (!block.getHash().equals(hashCode)) {
+      System.out.println("The new Blocks calculated hash is wrong");
+      System.out.println("Sent blocks hashCode: " + block.getHash() + " calculated HashCode " + hashCode);
+      return false;
+    }
+    return true;
   }
 
   public Block getLastBlockInChain() {

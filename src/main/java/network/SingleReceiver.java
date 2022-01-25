@@ -31,8 +31,7 @@ public class SingleReceiver extends Thread {
     try {
       socket = new DatagramSocket(peer.getPort());
       byte[] buf = new byte[20000];
-      boolean ctd = true;
-      while (ctd) {
+      while (true) {
         DatagramPacket datagramPacket = new DatagramPacket(buf, buf.length);
         socket.receive(datagramPacket);
         String received = new String(datagramPacket.getData(), 0, datagramPacket.getLength());
@@ -40,15 +39,15 @@ public class SingleReceiver extends Thread {
         Packet packet = new Gson().fromJson(received, Packet.class);
         switch (packet.getAction()) {
           case "sync":
-            Sender.sendCurrentBlockchain(network.getBlockchain(), network.getTransactionSet(), network.getUpcomingTransactionMap(), packet.getPeer());
+            Sender.sendCurrentBlockchain(network.getBlockchain(), network.getTransactionSet(), packet.getPeer());
             break;
           case "rsync":
             network.setBlockchain(packet.getBlockchain());
             network.setTransactionSet(packet.getTransactions());
-            network.setUpcomingTransactionMap(packet.getUpcomingTransactions());
             break;
           case "valUpTrans":
             network.addSignatureToUpcomingTransaction(packet.getUpcomingTransaction(), packet.getSignaturePublicKey());
+            out.println("Upcoming Transaction Map " + network.getUpcomingTransactionMap().toString());
             break;
           case "valTrans":
             network.addTransaction(packet.getTransaction());
@@ -57,7 +56,6 @@ public class SingleReceiver extends Thread {
             wallet.addBalance(packet.getAmount());
             out.println("You just received: " + packet.getAmount() + " your new Balance is: " + wallet.getBalance().getAmount());
           default:
-            ctd = false;
         }
       }
     } catch (IOException e) {

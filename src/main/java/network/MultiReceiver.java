@@ -2,6 +2,7 @@ package network;
 
 import static helper.IPHelper.getGroup;
 import static helper.IPHelper.getPort;
+import static helper.SignaturePublicKey.verify;
 import static network.Sender.acknowledgeHello;
 
 import application.Wallet;
@@ -39,8 +40,7 @@ public class MultiReceiver extends Thread {
       socket = new MulticastSocket(getPort());
       group = getGroup();
       socket.joinGroup(group);
-      boolean ctd = true;
-      while (ctd) {
+      while (true) {
         byte[] buf = new byte[20000];
         DatagramPacket datagramPacket = new DatagramPacket(buf, buf.length);
         socket.receive(datagramPacket);
@@ -79,13 +79,18 @@ public class MultiReceiver extends Thread {
             network.removePeer(packet.getPeer());
             break;
           case "upTrans":
-            System.out.println("Received UpTrans");
-            UpcomingTransaction upcomingTransaction = packet.getUpcomingTransaction();
-            //Check if UpcomingTransaction is valid
-            network.addUpcomingTransaction(upcomingTransaction);
-            SignaturePublicKey signaturePublicKey = new SignaturePublicKey(wallet.signTransaction(upcomingTransaction),
-                wallet.getKeyPair().getPublic());
-            Sender.validatedUpcomingTransaction(this.peer, packet.getPeer(), upcomingTransaction, signaturePublicKey);
+            if (!packet.getPeer().equals(this.peer)) {
+              System.out.println("Received UpTrans");
+              UpcomingTransaction upcomingTransaction = packet.getUpcomingTransaction();
+              if (verify(upcomingTransaction)) {
+                network.addUpcomingTransaction(upcomingTransaction);
+                SignaturePublicKey signaturePublicKey = new SignaturePublicKey(wallet.signTransaction(upcomingTransaction),
+                    wallet.getKeyPair().getPublic());
+                Sender.validatedUpcomingTransaction(this.peer, packet.getPeer(), upcomingTransaction, signaturePublicKey);
+              } else {
+                System.out.println("Could not verify upcoming Transaction: " + upcomingTransaction);
+              }
+            }
             break;
           case "finalTrans":
             network.addTransaction(packet.getTransaction());
@@ -93,7 +98,6 @@ public class MultiReceiver extends Thread {
             network.removeUpcomingTransaction(packet.getUpcomingTransaction());
             break;
           default:
-            ctd = false;
         }
       }
     } catch (IOException e) {

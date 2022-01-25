@@ -9,6 +9,8 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Wallet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Blockchain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/MerkleTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/MerkleTree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/blockchain/Miner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/blockchain/Miner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/helper/SignaturePublicKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helper/SignaturePublicKey.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/network/FelCoinSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/FelCoinSystem.java" afterDir="false" />
@@ -16,9 +18,8 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/network/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/Packet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/network/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/Sender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/network/SingleReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/SingleReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/peer/Peer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/peer/Peer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transaction/UpcomingTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BlockChain/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BlockChain/Block.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +121,8 @@
       <workItem from="1642519249211" duration="594000" />
       <workItem from="1642522200084" duration="6032000" />
       <workItem from="1642593118051" duration="1873000" />
-      <workItem from="1642595021691" duration="492000" />
+      <workItem from="1642595021691" duration="1199000" />
+      <workItem from="1643108094020" duration="5365000" />
     </task>
     <task id="LOCAL-00001" summary="Added merkle tree, added Hearbeat for detecting disconnected Peers. Added Transactions to Blocks">
       <created>1642421436000</created>
@@ -136,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642593269955</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="removed unused code parts">
+      <created>1642595544388</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1642595544388</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +154,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added merkle tree, added Hearbeat for detecting disconnected Peers. Added Transactions to Blocks" />
     <MESSAGE value="refactored Transaction network system" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored Transaction network system" />
+    <MESSAGE value="removed unused code parts" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed unused code parts" />
   </component>
 </project>

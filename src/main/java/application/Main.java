@@ -115,8 +115,8 @@ public class Main {
       network.addUpcomingTransaction(upcomingTransaction);
 
       Sender.proposeUpcomingTransactionToValidators(upcomingTransaction, peer);
-      Thread.sleep(2000);//Wait for Validators
-      if (network.getAmountOfSignedUpcomingTransactions(upcomingTransaction) >= network.findActiveValidatorsInNetwork() / 2) {
+      Thread.sleep(2000);//Wait for Validators to sign the Transaction
+      if (network.checkForValidators(upcomingTransaction, peer)) {
         network.removeUpcomingTransaction(upcomingTransaction);
         Sender.sendCoins(upcomingTransaction, peer, network);
         Transaction transaction = new Transaction(upcomingTransaction, signaturePublicKey);
@@ -139,7 +139,7 @@ public class Main {
     if (!peer.hasRole(MINER)) {
       out.println("You can not mine new Blocks as you are not the miner");
       return;
-    } else if (network.hasTransactions()) {
+    } else if (!network.hasTransactions()) {
       out.println("There are no active Transactions you can mine into a new Block");
       return;
     }

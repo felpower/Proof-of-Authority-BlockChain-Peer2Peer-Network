@@ -3,7 +3,6 @@ package network;
 import blockchain.Block;
 import blockchain.Blockchain;
 import helper.SignaturePublicKey;
-import java.util.Map;
 import java.util.Set;
 import peer.Peer;
 import transaction.Transaction;
@@ -20,7 +19,6 @@ public class Packet {
   private UpcomingTransaction upcomingTransaction;
   private SignaturePublicKey signaturePublicKey;
   private Transaction transaction;
-  private Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions;
   private Set<Transaction> transactions;
 
   public Packet(String action, Peer peer) {
@@ -32,13 +30,11 @@ public class Packet {
       String action,
       Peer peer,
       Blockchain blockchain,
-      Set<Transaction> transactions,
-      Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions) {
+      Set<Transaction> transactions) {
     this.action = action;
     this.peer = peer;
     this.blockchain = blockchain;
     this.transactions = transactions;
-    this.upcomingTransactions = upcomingTransactions;
   }
 
   public Packet(String action, Peer peer, Block block) {
@@ -108,10 +104,6 @@ public class Packet {
 
   public Transaction getTransaction() {
     return transaction;
-  }
-
-  public Map<UpcomingTransaction, Set<SignaturePublicKey>> getUpcomingTransactions() {
-    return upcomingTransactions;
   }
 
   public Set<Transaction> getTransactions() {

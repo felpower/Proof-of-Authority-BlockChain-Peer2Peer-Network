@@ -16,7 +16,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Map;
 import java.util.Set;
 import peer.Peer;
 import transaction.Transaction;
@@ -54,9 +53,8 @@ public class Sender {
   public static void sendCurrentBlockchain(
       Blockchain blockchain,
       Set<Transaction> transactions,
-      Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactions,
       Peer peer) {
-    sendSinglePacket(new Packet("rsync", peer, blockchain, transactions, upcomingTransactions), peer.getPort());
+    sendSinglePacket(new Packet("rsync", peer, blockchain, transactions), peer.getPort());
   }
 
   public static void chooseMiner(Peer peer, FelCoinSystem network) {
@@ -73,6 +71,7 @@ public class Sender {
 
   public static void validatedUpcomingTransaction(Peer peer, Peer sender, UpcomingTransaction upcomingTransaction,
       SignaturePublicKey signaturePublicKey) {
+    System.out.println("Sending Package to peer: " + sender.toString());
     sendSinglePacket(new Packet("valUpTrans", peer, upcomingTransaction, signaturePublicKey), sender.getPort());
   }
 

@@ -1,5 +1,8 @@
 package network;
 
+import static helper.HashCode.applySha256;
+import static java.util.function.Predicate.not;
+import static java.util.stream.Collectors.toList;
 import static peer.Role.MINER;
 import static peer.Role.VALIDATOR;
 
@@ -24,7 +27,7 @@ public class FelCoinSystem {
   private final Set<Peer> peers = new HashSet<>();
   private Blockchain blockchain;
   private Set<Transaction> transactionSet = new HashSet<>();
-  private Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactionMap = new HashMap<>();
+  private final Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactionMap = new HashMap<>();
 
   public FelCoinSystem(Peer peer) {
     peers.add(peer);
@@ -67,6 +70,10 @@ public class FelCoinSystem {
 
   public long findActiveValidatorsInNetwork() {
     return getPeers().stream().filter(peer -> peer.hasRole(VALIDATOR)).count();
+  }
+
+  public long findActiveValidatorsExcludingSelfInNetwork(Peer self) {
+    return getPeers().stream().filter(peer -> peer.hasRole(VALIDATOR)).filter(not(peer -> peer.equals(self))).count();
   }
 
   public Peer addRoleMinerToPeerWithPort(int port) {
@@ -131,6 +138,12 @@ public class FelCoinSystem {
     this.transactionSet = transactionSet;
   }
 
+  public List<String> getTransactionHashes() {
+    return transactionSet.stream()
+        .map(transaction -> applySha256(transaction.toString()))
+        .collect(toList());
+  }
+
   public void addSignatureToUpcomingTransaction(UpcomingTransaction upcomingTransaction, SignaturePublicKey signaturePublicKey) {
     upcomingTransactionMap.get(upcomingTransaction).add(signaturePublicKey);
   }
@@ -139,7 +152,13 @@ public class FelCoinSystem {
     return upcomingTransactionMap;
   }
 
-  public void setUpcomingTransactionMap(Map<UpcomingTransaction, Set<SignaturePublicKey>> upcomingTransactionMap) {
-    this.upcomingTransactionMap = upcomingTransactionMap;
+  public boolean checkForValidators(UpcomingTransaction upcomingTransaction, Peer peer) {
+    long validatorsInNetwork = findActiveValidatorsInNetwork();
+    System.out.println("Validators in network total: " + validatorsInNetwork);
+    validatorsInNetwork = findActiveValidatorsExcludingSelfInNetwork(peer);
+    System.out.println("Validators in network excluding self: " + validatorsInNetwork);
+    int amountOfSignedUpcomingTransactions = getAmountOfSignedUpcomingTransactions(upcomingTransaction);
+    System.out.println("signed Transactions: " + amountOfSignedUpcomingTransactions);
+    return amountOfSignedUpcomingTransactions >= validatorsInNetwork * 0.5;
   }
 }

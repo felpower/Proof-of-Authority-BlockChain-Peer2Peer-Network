@@ -59,6 +59,10 @@ public class UpcomingTransaction implements Serializable {
     return signaturePublicKey;
   }
 
+  public byte[] getPublicKeyEncoded() {
+    return signaturePublicKey.getPublicKeyEncoded();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
